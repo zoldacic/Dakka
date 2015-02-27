@@ -5,7 +5,6 @@ class HomeController {
 		this.cards = firebaseService.getRef('cards');
 
 		let card0 = new Card();
-		this.cards.$add({ text: 'trhoj' });
 		this.addCard(card0);
 	} 
 
