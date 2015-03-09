@@ -11865,16 +11865,18 @@
     <Content Include="node_modules\watchify\test\many_immediate.js" />
     <Content Include="node_modules\watchify\test\zzz.js" />
     <Content Include="src\app.js" />
-    <Content Include="src\home\home.html" />
-    <Content Include="src\login\login.html" />
-    <Content Include="src\home\HomeController.js" />
-    <Content Include="src\model\Hand.js" />
-    <Content Include="src\model\Card.js" />
-    <Content Include="src\model\Main.js" />
+    <Content Include="src\table\table.html" />
+    <Content Include="src\model\physical\Table.js" />
+    <Content Include="src\scrapyard\login\login.html" />
+    <Content Include="src\table\TableController.js" />
+    <Content Include="src\model\physical\Hand.js" />
+    <Content Include="src\model\physical\Card.js" />
+    <Content Include="src\model\virtual\CardArea.js" />
     <Content Include="src\playground\playground.html" />
     <Content Include="src\playground\PlaygroundController.js" />
     <Content Include="src\service\FirebaseService.js" />
     <Content Include="src\service\LoginService.js" />
+    <Content Include="style\cardArea.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -11912,7 +11914,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties package_1json__JSONSchema="http://json.schemastore.org/package" node__modules_2angular-dragdrop_2package_1json__JSONSchema="http://json.schemastore.org/package" />
+      <UserProperties node__modules_2angular-dragdrop_2package_1json__JSONSchema="http://json.schemastore.org/package" package_1json__JSONSchema="http://json.schemastore.org/package" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

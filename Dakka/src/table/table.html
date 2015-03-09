@@ -1,0 +1,7 @@
+﻿
+HOME
+<div ng-controller="tableController as table">
+	<div ng-repeat="cardArea in table.cardAreas">
+		<div class="cardArea" style="border-color: blue" ng-style="{width: cardArea.widthInPixels, height: cardArea.heightInPixels }">{{cardArea.name}}, {{ cardArea.widthInPixels}}, {{ cardArea.heightInPixels}}</div>
+	</div>
+</div>

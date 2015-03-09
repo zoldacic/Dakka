@@ -1,4 +1,4 @@
-﻿import {Card} from '../model/Card'
+﻿import {Card} from '../model/physical/Card'
 
 class PlaygroundController {
 	constructor() { 
