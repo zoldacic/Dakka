@@ -1,20 +1,24 @@
-import {Card} from '../model/physical/Card'
-import {CardArea} from '../model/virtual/CardArea'
+﻿import {TableService} from './TableService';
 
 class TableController {
-	constructor(firebaseService) {
-		//this.cards = firebaseService.getRef('cards');
-		let cardAreasDB = firebaseService.getRef('cardAreas');		
-
-		this._cardAreas = [];
-		cardAreasDB.$loaded(() => angular.forEach(cardAreasDB, (area, key) => {
-			this._cardAreas.push(new CardArea(cardAreasDB[key].widthInCards, cardAreasDB[key].heightInCards))}
-		));
-	} 
-	
-	get cardAreas() {
-		return this._cardAreas;
+	constructor(tableService, Lightbox) { 
+		this._tableService = tableService;
+		this._lightbox = Lightbox;
 	}
+
+	get cardAreas() {
+		return this._tableService.cardAreas;
+	}
+
+	startDragging(event, ui, cardInfo) {
+		//card.startDragging();
+	}
+
+	openLightboxModal(cards, index) {
+		if (!cards[index].isDragging) {
+			this._lightbox.openModal(cards, index);
+		}
+	};
 }
 
 export {TableController}

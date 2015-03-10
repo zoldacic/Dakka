@@ -5,6 +5,7 @@ class Card {
 		this._image = image;
 		
 		this._drag = true;
+		this._dragging = false;
 	}
 
 	get title() {
@@ -25,6 +26,14 @@ class Card {
 
 	get drag() {
 		return true;
+	}
+
+	get isDragging() {
+		return this._dragging;
+	}
+
+	startDragging() {
+		this._dragging = true;
 	}
 }
 
