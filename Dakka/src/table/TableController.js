@@ -10,8 +10,12 @@ class TableController {
 		return this._tableService.cardAreas;
 	}
 
-	startDragging(event, ui, cardInfo) {
-		//card.startDragging();
+	startDragging(event, ui, {card: card}) {
+		card.startDragging();
+	}
+
+	stopDragging(event, ui, {card: card}) {
+		card.stopDragging();
 	}
 
 	openLightboxModal(cards, index) {

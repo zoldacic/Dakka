@@ -35,6 +35,10 @@ class Card {
 	startDragging() {
 		this._dragging = true;
 	}
+
+	stopDragging() {
+		this._dragging = false;
+	}
 }
 
 export {Card}
