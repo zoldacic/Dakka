@@ -14,8 +14,10 @@
   	<link href="/node_modules/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
   	<link href="/node_modules/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css" rel="stylesheet" />
   	<link href="/node_modules/angular-loading-bar/build/loading-bar.css" rel="stylesheet" />
-  	<link href="/style/cardArea.css" rel="stylesheet" />
+  	<link href="/node_modules/font-awesome/css/font-awesome.css" rel="stylesheet" />
+  	<link href="/node_modules/metismenu/dist/metisMenu.css" rel="stylesheet" />
 
+	<link href="/style/cardArea.css" rel="stylesheet" />
 
   	<script src="/node_modules/jquery/dist/jquery.js"></script>  	
   	<script src="/node_modules/jquery-ui-browserify/dist/jquery-ui.js"></script>
@@ -23,7 +25,7 @@
   	<script src="/node_modules/angular-bootstrap/dist/ui-bootstrap.js"></script>
   	<script src="/node_modules/angular-bootstrap/dist/ui-bootstrap-tpls.js"></script>
   	<script src="/node_modules/angular-loading-bar/build/loading-bar.js"></script>
-  	<script src="/node_modules/angular-route/angular-route.js"></script>
+  	<script src="/node_modules/angular-ui-router/release/angular-ui-router.js"></script>
   	<script src="/node_modules/angular-touch/angular-touch.js"></script>
   	<script src="/node_modules/angular-animate/angular-animate.js"></script>
   	<script src="/node_modules/angularfire/node_modules/firebase/lib/firebase-web.js"></script>
@@ -31,10 +33,24 @@
   	<script src="/node_modules/angular-dragdrop/src/angular-dragdrop.js"></script>
   	<script src="/node_modules/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
   	<script src="/node_modules/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script>
+  	<script src="/node_modules/metismenu/dist/metisMenu.js"></script>
 
-  	<script src="./dist/app.js"> </script>  	
+  	<script src="./dist/app.js"> </script>  
+
+	<!-- SBADMIN -->
+  	<link href="/sbadmin/styles/sb-admin-2.css" rel="stylesheet" />
+  	<link href="/sbadmin/styles/main.css" rel="stylesheet" />
+
+  	<script src="/sbadmin/js/sb-admin-2.js"></script>
+  	<script src="/src/dashboard/stats/stats.js"></script>
+  	<script src="/src/dashboard/header/header.js"></script>
+  	<script src="/src/dashboard/header/header-notification/header-notification.js"></script>
+  	<script src="/src/dashboard/sidebar/sidebar.js"></script>
+  	<script src="/src/dashboard/sidebar/sidebar-search/sidebar-search.js"></script>
+  	<!-- / SBADMIN -->
+	
   	<div ng-app="app">	
-	  	<div ng-view></div>
+	  	<div ui-view></div>
 	  </div>
   </body>
 </html>
