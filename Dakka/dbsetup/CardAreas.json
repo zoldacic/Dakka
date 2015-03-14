@@ -1,0 +1,37 @@
+﻿{
+	"EnemyCardPile": {
+		"heightInCards": 1,
+		"name": "Enemy Card Pile",
+		"widthInCards": 1,
+		"column": 1,
+		"row":  1
+	},
+	"EnemyHQ": {
+		"heightInCards": 1,
+		"name": "Enemy HQ",
+		"widthInCards": 1,
+		"column": 5,
+		"row": 1
+	},
+	"Planets": {
+		"heightInCards": 1,
+		"name": "Planets",
+		"widthInCards": 7,
+		"column": 1,
+		"row":  2
+	},
+	"MyCardPile": {
+		"heightInCards": 1,
+		"name": "My Card Pile",
+		"widthInCards": 1,
+		"column": 1,
+		"row": 3
+	},
+	"MyHQ": {
+		"heightInCards": 1,
+		"name": "My HQ",
+		"widthInCards": 1,
+		"column": 5,
+		"row": 3
+	}
+}

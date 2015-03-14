@@ -1,3 +1,5 @@
 ﻿.cardArea {
 	border: dashed;
+	border-color: blue;
+	border-width: 1px;
 }

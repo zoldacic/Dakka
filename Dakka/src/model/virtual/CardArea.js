@@ -4,9 +4,10 @@
 		this._widthInCards = widthInCards;
 		this._heightInCards = heightInCards;
 
-		this._cardSize = new Array(100, 140);
+		this._cardSize = new Array(100, 139);
 		this._cards = [];
 		this._rotatedCards = false;
+		this._cardPadding = 2;
 	}
 
 	get name() {
@@ -14,7 +15,8 @@
 	}
 		
 	get widthInPixels() {
-		return this._rotatedCards ? this._cardSize[1] * this._widthInCards : this._cardSize[0] * this._widthInCards;
+		let width = this._rotatedCards ? this._cardSize[1] * this._widthInCards: this._cardSize[0] * this._widthInCards;
+		return width + this._cardPadding * 2;
 	}
 
 	get widthInCards() {
@@ -22,7 +24,8 @@
 	}
 
 	get heightInPixels() {
-		return this._rotatedCards ? this._cardSize[0] * this._heightInCards : this._cardSize[1] * this._heightInCards;
+		let height = this._rotatedCards ? this._cardSize[0] * this._heightInCards: this._cardSize[1] * this._heightInCards;
+		return height + this._cardPadding * 2;
 	}
 
 	get heightInCards() {

@@ -1,0 +1,19 @@
+﻿
+
+.card {
+	margin: 2px;
+	padding:2px; 
+	border:0px; 
+	background-color:transparent;
+	display: table-cell;
+}
+
+.cardImage {
+	width:100px;
+	height: auto;
+}
+
+.cardImage.rotated {	
+	width:auto;
+	height:100px
+}
