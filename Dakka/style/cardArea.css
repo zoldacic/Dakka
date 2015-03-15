@@ -1,4 +1,12 @@
 ﻿.cardArea {
+
+}
+
+.cardArea label {
+	margin-bottom: 0px;
+}
+
+.cardAreaFrame {
 	border: dashed;
 	border-color: blue;
 	border-width: 1px;

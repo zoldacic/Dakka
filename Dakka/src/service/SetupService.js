@@ -19,7 +19,7 @@ class SetupService {
 			);
 
 		this._$q.all([cardAreasDB.$loaded(), planetsDB.$loaded()]).then(() => angular.forEach(cardAreasDB, (area, key) => {
-			let cardArea = new CardArea(area.name, area.widthInCards, area.heightInCards);
+			let cardArea = new CardArea(cardAreasDB, area);
 
 			if (cardArea.name == 'Planets') {
 				cardArea.rotatedCards = true;
@@ -30,6 +30,7 @@ class SetupService {
 			}
 
 			this._tableService.cardAreas.push(cardArea);
+			//this._tableService.cardAreas.ref = cardAreasDB;
 		}));
 	}
 }
