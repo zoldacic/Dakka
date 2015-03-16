@@ -10793,6 +10793,7 @@
     <Content Include="src\home\home.html" />
     <Content Include="src\login\login.html" />
     <Content Include="src\home\HomeController.js" />
+    <Content Include="src\model\AgotCard.js" />
     <Content Include="src\model\Hand.js" />
     <Content Include="src\model\Card.js" />
     <Content Include="src\model\Main.js" />
