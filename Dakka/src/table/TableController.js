@@ -24,6 +24,11 @@ class TableController {
 		card.startDragging();
 	}
 
+	onCardDrop(event, ui) {
+		$(event.target).append(ui.draggable[0]);
+		$(ui.draggable).css({top: 0, left: 0});
+	} 
+
 	//stopDraggingCard(event, ui, {card: card}) {
 			
 	//}.bind(this);

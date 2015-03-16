@@ -8,8 +8,8 @@
 		<label style=" font bold 12px arial">
 			{{cardArea.name}}
 		</label>
-		<div class="cardAreaFrame" ng-model="cardArea.cards" data-drop="true" jqyoui-droppable data-jqyoui-options="table.verifyCardDrop" ng-style="{'min-width': cardArea.widthInPixels, 'max-width': cardArea.widthInPixels, 'min-height': cardArea.heightInPixels, 'max-height': cardArea.heightInPixels }">
-			<div class="card" ng-repeat="card in cardArea.cards" class="btn btn-primary" data-drag="card.draggable" data-jqyoui-options="{revert: 'invalid'}" ng-click="table.openLightboxModal(cardArea.cards, $index)" jqyoui-draggable="{onStart:'table.startDraggingCard({card: card})', onStop:'table.stopDraggingCard({card: card})', animate:true}">
+		<div class="cardAreaFrame" ng-model="cardArea.cards" data-drop="true" jqyoui-droppable="{onDrop: 'table.onCardDrop'}" data-jqyoui-options="table.verifyCardDrop" ng-style="{'min-width': cardArea.widthInPixels, 'max-width': cardArea.widthInPixels, 'min-height': cardArea.heightInPixels, 'max-height': cardArea.heightInPixels }">
+			<div ng-repeat="card in cardArea.cards" class="btn btn-primary card" data-drag="card.draggable" data-jqyoui-options="{revert: 'invalid'}" ng-click="table.openLightboxModal(cardArea.cards, $index)" jqyoui-draggable="{onStart:'table.startDraggingCard({card: card})', onStop:'table.stopDraggingCard({card: card})', animate:true}">
 				<img class="cardImage" ng-class="{rotated: cardArea.rotatedCards}" ng-src="{{card.image}}" />
 			</div>
 		</div>
