@@ -4,7 +4,7 @@ class Card {
 		this._text = text;
 		this._image = image;
 		
-		this._drag = true;
+		this._draggable = true;
 		this._dragging = false;
 	}
 
@@ -20,12 +20,12 @@ class Card {
 		return this._image;
 	}
 
-	set drag(value) {
-		this._drag = value;
+	set draggable(value) {
+		this._draggable = value;
 	}
 
-	get drag() {
-		return true;
+	get draggable() {
+		return this._draggable;
 	}
 
 	get isDragging() {

@@ -2,6 +2,7 @@
 import {TableService} from '../table/TableService'
 import {CardArea} from '../model/virtual/CardArea'
 import {Planet} from '../model/physical/Planet'
+import {Card} from '../model/physical/Card'
 
 class SetupService {
 	constructor($q, firebaseService, tableService) { 
@@ -22,11 +23,13 @@ class SetupService {
 			let cardArea = new CardArea(cardAreasDB, area);
 
 			if (cardArea.name == 'Planets') {
-				cardArea.rotatedCards = true;
 				angular.forEach(planetsDB0, (planetDB, key) => {
 					cardArea.cards.push(new Planet(planetDB.name, '', planetDB.image));	
-				});
-				
+				});				
+			}
+
+			if (cardArea.name == 'My HQ') {
+				cardArea.cards.push(new Card("Card0", "", "/img/cards/033-attack-squig-herd.jpg"));
 			}
 
 			this._tableService.cardAreas.push(cardArea);

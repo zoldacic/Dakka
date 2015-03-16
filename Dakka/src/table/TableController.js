@@ -1,16 +1,20 @@
 ﻿import {TableService} from './TableService';
 
 class TableController {
-	constructor($filter, tableService, Lightbox) { 
+	constructor($filter, $timeout, tableService, Lightbox) { 
 		this._$filter = $filter;
+		this._$timeout = $timeout;
+
 		this._tableService = tableService;
 		this._lightbox = Lightbox;
 		this._positionedCardAreas = [];
-	}
+
+		this.stopDraggingCard = (event, ui, {card: card}) => { this._$timeout(() => { card.stopDragging(); }, 500); }.bind(this);
+		}
 
 	get cardAreas() {
-		return this._tableService.cardAreas;
-	}
+			return this._tableService.cardAreas;
+		}
 
 	get positionedCardAreas() {
 		return this._positionedCardAreas;
@@ -20,13 +24,9 @@ class TableController {
 		card.startDragging();
 	}
 
-	stopDraggingCard(event, ui, {card: card}) {
-		card.stopDragging();
-	}
-
-	stopDraggingCardArea(event, ui, {cardArea: cardArea}) {
-		card.stopDragging();
-	}
+	//stopDraggingCard(event, ui, {card: card}) {
+			
+	//}.bind(this);
 
 	openLightboxModal(cards, index) {
 		if (!cards[index].isDragging) {
@@ -34,8 +34,21 @@ class TableController {
 		}
 	};
 
+	get verifyCardDrop()  {
+		let returnFunction = (dragElement) => {
+			if (dragElement[0].classList.contains('card')) {
+				return true;
+			} else {
+				return false;
+			}				
+		}
+
+		return {
+			accept: returnFunction
+		};
+	}
+
 	get verifyCardAreaDrop()  {
-		let filter = 5;
 		let returnFunction = (dragElement) => {
 			if (dragElement[0].classList.contains('cardArea')) {
 				let cardAreaName = $(dragElement[0]).find("label")[0].textContent.trim();
@@ -52,7 +65,7 @@ class TableController {
 
 		return {
 			accept: returnFunction
-		}
+		};
 	}
 
 	getTimes(times) {

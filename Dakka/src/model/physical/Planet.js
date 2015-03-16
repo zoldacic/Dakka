@@ -3,6 +3,8 @@
 class Planet extends Card {
 	constructor(title, text, image) { 
 		super(title, text, image);
+
+		this.draggable = false;
 	}
 }
 

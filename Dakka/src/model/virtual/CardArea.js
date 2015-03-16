@@ -1,7 +1,7 @@
 ﻿class CardArea {
-	constructor(containerRef, cardAreaDB) { 
+	constructor(containerRef, ref) { 
 		this._containerRef = containerRef;
-		this._cardAreaDB = cardAreaDB;
+		this._ref = ref;
 
 		this._cardSize = new Array(100, 139);
 		this._cards = [];
@@ -10,7 +10,7 @@
 	}
 
 	get name() {
-		return this._cardAreaDB.name;
+		return this._ref.name;
 	}
 		
 	get widthInPixels() {
@@ -19,7 +19,7 @@
 	}
 
 	get widthInCards() {
-		return this._cardAreaDB.widthInCards;
+		return this._ref.widthInCards;
 	}
 
 	get heightInPixels() {
@@ -28,7 +28,7 @@
 	}
 
 	get heightInCards() {
-		return this._cardAreaDB.heightInCards;
+		return this._ref.heightInCards;
 	}
 
 	get cards() {
@@ -36,32 +36,28 @@
 	}
 
 	get rotatedCards() {
-		return this._rotatedCards;
-	}
-
-	set rotatedCards(value) {
-		this._rotatedCards = value;
+		return this._ref.rotatedCards;
 	}
 
 	get left() {
-		return this._cardAreaDB.left;
+		return this._ref.left;
 	}
 
 	set left(value) {
-		if (this._cardAreaDB.left != value) {
-			this._cardAreaDB.left = value;
-			this._containerRef.$save(this._cardAreaDB);
+		if (this._ref.left != value) {
+			this._ref.left = value;
+			this._containerRef.$save(this._ref);
 		}
 	}
 
 	get top() {
-		return this._cardAreaDB.top;
+		return this._ref.top;
 	}
 
 	set top(value) {
-		if (this._cardAreaDB.top != value) {
-			this._cardAreaDB.top = value;
-			this._containerRef.$save();
+		if (this._ref.top != value) {
+			this._ref.top = value;
+			this._containerRef.$save(this._ref);
 		}	
 	}
 }
