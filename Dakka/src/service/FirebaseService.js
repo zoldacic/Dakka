@@ -7,7 +7,7 @@ class FirebaseService {
 		let ref = new Firebase("https://dakka.firebaseio.com/" + entity);
 		let sync = this.$firebase(ref);		
 		return sync.$asArray();
-	}	
+	}
 }
 
 export {FirebaseService} 
