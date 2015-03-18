@@ -30,6 +30,10 @@ class SetupService {
 
 			if (cardArea.name == 'My HQ') {
 				cardArea.cards.push(new Card("Card0", "", "/img/cards/033-attack-squig-herd.jpg"));
+				cardArea.cards.push(new Card("Card1", "", "/img/cards/068-zogworts-runtherders.jpg"));
+				cardArea.cards.push(new Card("Card2", "", "/img/cards/069-zogworts-hovel.jpg"));
+				cardArea.cards.push(new Card("Card3", "", "/img/cards/070-wyrdboy-stikk.jpg"));
+				cardArea.cards.push(new Card("Card4", "", "/img/cards/071-launch-da-snots.jpg"));
 			}
 
 			this._tableService.cardAreas.push(cardArea);

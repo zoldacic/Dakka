@@ -10,11 +10,11 @@ class TableController {
 		this._positionedCardAreas = [];
 
 		this.stopDraggingCard = (event, ui, {card: card}) => { this._$timeout(() => { card.stopDragging(); }, 500); }.bind(this);
-		}
+	}
 
 	get cardAreas() {
-			return this._tableService.cardAreas;
-		}
+		return this._tableService.cardAreas;
+	}
 
 	get positionedCardAreas() {
 		return this._positionedCardAreas;
@@ -26,12 +26,17 @@ class TableController {
 
 	onCardDrop(event, ui) {
 		$(event.target).append(ui.draggable[0]);
-		$(ui.draggable).css({top: 0, left: 0});
-	} 
 
-	//stopDraggingCard(event, ui, {card: card}) {
-			
-	//}.bind(this);
+		// TODO: GET THIS FROM ??
+		let cardSize = 100;
+		let cardsInStack = $(event.target).children().length - 1;
+		let left = -cardsInStack * cardSize + cardsInStack * 20;
+		$(ui.draggable).css({top: 0, left: left + 'px'});
+
+		// Make frame wider
+		let frameWidth = 104 + cardsInStack * 20;
+		$(event.target).css({'min-width':frameWidth + 'px','max-width':frameWidth + 'px'});
+	} 
 
 	openLightboxModal(cards, index) {
 		if (!cards[index].isDragging) {
@@ -42,6 +47,31 @@ class TableController {
 	get verifyCardDrop()  {
 		let returnFunction = (dragElement) => {
 			if (dragElement[0].classList.contains('card')) {
+				
+				// Make frame smaller
+				let cardsInStack = $(dragElement[0]).parent().children().length - 1;
+
+				if (cardsInStack == 0) {
+					cardsInStack = 1;
+				}
+
+				let frameWidth = 84 + cardsInStack * 20;
+				$(dragElement[0]).parent().css({'min-width':frameWidth + 'px','max-width':frameWidth + 'px'});
+
+				// Recalculate positions of remaining cards
+				let index = 0;
+				angular.forEach($(dragElement[0]).parent().children(), (card, indexWithDraggable) => {
+
+					if (dragElement[0] != card) {
+						// TODO: GET THIS FROM ??
+						let cardSize = 100;
+						let left = -index * cardSize + index * 20;
+						$(card).css({top: 0, left: left + 'px'});
+
+						index++;
+					}
+				});
+				
 				return true;
 			} else {
 				return false;

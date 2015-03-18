@@ -61,6 +61,11 @@
   <ItemGroup>
     <None Include="dbsetup\CardAreas.json" />
     <Content Include="img\cards\033-attack-squig-herd.jpg" />
+    <Content Include="img\cards\067-old-zogwort.jpg" />
+    <Content Include="img\cards\068-zogworts-runtherders.jpg" />
+    <Content Include="img\cards\069-zogworts-hovel.jpg" />
+    <Content Include="img\cards\070-wyrdboy-stikk.jpg" />
+    <Content Include="img\cards\071-launch-da-snots.jpg" />
     <Content Include="img\cards\planets\atroxprime.png" />
     <Content Include="img\cards\planets\barlus-planet.png" />
     <Content Include="img\cards\planets\carnath.jpg" />
@@ -12206,7 +12211,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties package_1json__JSONSchema="http://json.schemastore.org/package" node__modules_2angular-dragdrop_2package_1json__JSONSchema="http://json.schemastore.org/package" />
+      <UserProperties node__modules_2angular-dragdrop_2package_1json__JSONSchema="http://json.schemastore.org/package" package_1json__JSONSchema="http://json.schemastore.org/package" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
