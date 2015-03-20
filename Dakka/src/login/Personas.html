@@ -1,0 +1,8 @@
+﻿
+<div ng-controller="personaController as vm">
+	<h2>Personas</h2>
+	<div ng-repeat="persona in vm.personas" ng-click="vm.login(persona)" style="float:left; width:200px; margin:25px;">
+		<img  ng-src="{{persona.src}}" style="width:200px"/>
+		<label>{{persona.name}}</label>
+</div>
+</div>

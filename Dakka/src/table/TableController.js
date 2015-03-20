@@ -34,6 +34,10 @@ class TableController {
 		$(ui.draggable).css({top: 0, left: left + 'px'});
 
 		// Make frame wider
+		if (cardsInStack < 0) {
+			cardsInStack = 0;
+		}
+
 		let frameWidth = 104 + cardsInStack * 20;
 		$(event.target).css({'min-width':frameWidth + 'px','max-width':frameWidth + 'px'});
 	} 
