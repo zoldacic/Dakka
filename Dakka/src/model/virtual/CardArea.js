@@ -11,6 +11,7 @@ class CardArea {
 		
 		this._cardFoldingEnum = cardFoldingEnum;
 		this._cardFolding = this._cardFoldingEnum.OVERLAPPING;
+
 	}
 
 	get id() {
@@ -74,12 +75,22 @@ class CardArea {
 		}	
 	}
 
-	showAllCards() {
-		this._cardFolding = this._cardFoldingEnum.FULL;
+	changeCardDisplay() {
+		switch(this._cardFolding) {
+			case this._cardFoldingEnum.TOGETHER: 
+				this._cardFolding = this._cardFoldingEnum.OVERLAPPING;
+				break;
+			case this._cardFoldingEnum.OVERLAPPING:
+				this._cardFolding = this._cardFoldingEnum.FULL;
+				break;
+			case this._cardFoldingEnum.FULL:
+				this._cardFolding = this._cardFoldingEnum.TOGETHER;
+				break;
+		}
 	}
 
 	getCardPositionLeft(index) {
-		let offset = 0;
+		let offset = 0;		
 		switch(this._cardFolding) {
 			case this._cardFoldingEnum.TOGETHER: 
 				offset = 0;
@@ -88,10 +99,14 @@ class CardArea {
 				offset = 20;
 				break;
 			case this._cardFoldingEnum.FULL:
-				offset = this._cardSize[0];
+				offset = this._cardSize[0] + this._cardPadding;
 				break;
 		}
 		return index * offset;
+	}
+
+	isExpandable() {
+		return this._cardFolding != this._cardFoldingEnum.FULL;
 	}
 }
 
