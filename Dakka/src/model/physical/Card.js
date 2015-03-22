@@ -1,5 +1,8 @@
 class Card {
 	constructor(title, text, image) {
+		//this._containerRef = containerRef;
+		//this._ref = ref;
+
 		this._title = title;
 		this._text = text;
 		this._image = image;
@@ -8,16 +11,24 @@ class Card {
 		this._dragging = false;
 	}
 
+	get id() {
+		return this._title;
+		//return this._ref.$id;
+	}
+
 	get title() {
 		return this._title;
+		//return this._ref.title;
 	}
 
 	get text() {
 		return this._text;
+		//return this._ref._text;
 	}
 
 	get image() {
 		return this._image;
+		//return this._ref._image;
 	}
 
 	set draggable(value) {

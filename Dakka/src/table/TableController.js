@@ -24,23 +24,77 @@ class TableController {
 		card.startDragging();
 	}
 
-	onCardDrop(event, ui) {
+
+	stopDraggingCard(event, ui, {card: card}) {
+		let a = 0;
+	}
+
+	onCardDrop(event, ui, {cardAreas: cardAreas}) {
+
+		// Start: Silly workaround because I couldnt get ng-model in draggable to work together with manually setting left/top
+		// TODO: Optimize all searches, e.g. with for-loop
+
+		// Get card id
+		let cardId = ui.draggable.attr('id');
+
+		// Find old card area
+		let areaFound = false;
+
+		let findCardAndCardArea = (cardId) => {
+			cardAreas.forEach((cardArea) => {
+
+				// There is no "break" in forEach...
+				if (!areaFound) {	
+					cardArea.cards.forEach((c) => {
+						if (c.id == cardId) {
+							card = c; 
+						}
+					});
+
+					if (card) {
+						oldCardArea = cardArea;						
+						areaFound = true;
+					}
+				}
+			});
+
+			return { cardArea: oldCardArea, card: card };
+		}
+		
+		let { cardArea: oldCardArea, card: card } = findCardAndCardArea(cardId);
+
+		// Move card from old cardArea to new cardArea
+		oldCardArea.cards.splice(oldCardArea.cards.indexOf(card), 1);
+
+		let newCardAreaId = $(event.target).parent().attr('id')
+		let cardArea = null;
+		cardAreas.forEach((c) => {
+			if (c.id == newCardAreaId) {
+				cardArea = c; 
+			}
+		});
+
+		cardArea.cards.push(card);
+
+		// Start: Move card in UI
 		$(event.target).append(ui.draggable[0]);
 
-		// TODO: GET THIS FROM ??
+
+		// TODO: GET CARDSIZE FROM ??
 		let cardSize = 100;
 		let cardsInStack = $(event.target).children().length - 1;
-		let left = -cardsInStack * cardSize + cardsInStack * 20;
+		let left = cardsInStack * 20;
 		$(ui.draggable).css({top: 0, left: left + 'px'});
 
 		// Make frame wider
 		if (cardsInStack < 0) {
 			cardsInStack = 0;
 		}
+	
+		// End: Move card in UI		
 
-		let frameWidth = 104 + cardsInStack * 20;
-		$(event.target).css({'min-width':frameWidth + 'px','max-width':frameWidth + 'px'});
-	} 
+		// End: Silly workaround
+	}
 
 	openLightboxModal(cards, index) {
 		if (!cards[index].isDragging) {
@@ -58,23 +112,6 @@ class TableController {
 				if (cardsInStack == 0) {
 					cardsInStack = 1;
 				}
-
-				let frameWidth = 84 + cardsInStack * 20;
-				$(dragElement[0]).parent().css({'min-width':frameWidth + 'px','max-width':frameWidth + 'px'});
-
-				// Recalculate positions of remaining cards
-				let index = 0;
-				angular.forEach($(dragElement[0]).parent().children(), (card, indexWithDraggable) => {
-
-					if (dragElement[0] != card) {
-						// TODO: GET THIS FROM ??
-						let cardSize = 100;
-						let left = -index * cardSize + index * 20;
-						$(card).css({top: 0, left: left + 'px'});
-
-						index++;
-					}
-				});
 				
 				return true;
 			} else {

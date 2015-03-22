@@ -6,7 +6,7 @@ import {LoginService} from './login/LoginService';
 import {PlaygroundController} from './playground/PlaygroundController';
 import {FirebaseService} from './service/FirebaseService';
 import {PersonaController} from './login/PersonaController';
-
+import {CardFoldingEnum} from './enum/CardFoldingEnum';
 
 angular
 	.module('app', ['firebase', 'ngDragDrop', 'ngTouch', 'ngAnimate', 'ui.router',  'ui.bootstrap', 'angular-loading-bar',  'bootstrapLightbox'])
@@ -14,6 +14,7 @@ angular
 	.service('tableService', TableService)
 	.service('setupService', SetupService)
 	.service('loginService', LoginService)
+	.service('cardFoldingEnum', CardFoldingEnum)
 	.controller('mainController', MainController)
 	.controller('tableController', TableController)
 	.controller('playgroundController', PlaygroundController)

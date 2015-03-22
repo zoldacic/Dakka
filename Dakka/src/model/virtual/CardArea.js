@@ -1,5 +1,6 @@
-﻿class CardArea {
-	constructor(containerRef, ref) { 
+﻿
+class CardArea {
+	constructor(containerRef, ref, cardFoldingEnum) { 
 		this._containerRef = containerRef;
 		this._ref = ref;
 
@@ -7,6 +8,13 @@
 		this._cards = [];
 		this._rotatedCards = false;
 		this._cardPadding = 2;
+		
+		this._cardFoldingEnum = cardFoldingEnum;
+		this._cardFolding = this._cardFoldingEnum.OVERLAPPING;
+	}
+
+	get id() {
+		return this._ref.$id;
 	}
 
 	get name() {
@@ -14,7 +22,12 @@
 	}
 		
 	get widthInPixels() {
-		let width = this._rotatedCards ? this._cardSize[1] * this.widthInCards: this._cardSize[0] * this.widthInCards;
+		let width = this._cardSize[0];
+
+		if (this._cards.length > 1) {
+			width = this.getCardPositionLeft(this._cards.length-1) + this._cardSize[0];
+		}			
+			
 		return width + this._cardPadding * 2;
 	}
 
@@ -59,6 +72,26 @@
 			this._ref.top = value;
 			this._containerRef.$save(this._ref);
 		}	
+	}
+
+	showAllCards() {
+		this._cardFolding = this._cardFoldingEnum.FULL;
+	}
+
+	getCardPositionLeft(index) {
+		let offset = 0;
+		switch(this._cardFolding) {
+			case this._cardFoldingEnum.TOGETHER: 
+				offset = 0;
+				break;
+			case this._cardFoldingEnum.OVERLAPPING:
+				offset = 20;
+				break;
+			case this._cardFoldingEnum.FULL:
+				offset = this._cardSize[0];
+				break;
+		}
+		return index * offset;
 	}
 }
 

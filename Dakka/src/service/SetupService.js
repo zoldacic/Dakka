@@ -5,10 +5,11 @@ import {Planet} from '../model/physical/Planet'
 import {Card} from '../model/physical/Card'
 
 class SetupService {
-	constructor($q, firebaseService, tableService) { 
+	constructor($q, firebaseService, tableService, cardFoldingEnum) { 
 		this._$q = $q;
 		this._firebaseService = firebaseService;
 		this._tableService = tableService;			
+		this._cardFoldingEnum = cardFoldingEnum;
 	}
 
 	init() {
@@ -20,7 +21,7 @@ class SetupService {
 			);
 
 		this._$q.all([cardAreasDB.$loaded(), planetsDB.$loaded()]).then(() => angular.forEach(cardAreasDB, (area, key) => {
-			let cardArea = new CardArea(cardAreasDB, area);
+			let cardArea = new CardArea(cardAreasDB, area, this._cardFoldingEnum);
 
 			if (cardArea.name == 'Planets') {
 				angular.forEach(planetsDB0, (planetDB, key) => {

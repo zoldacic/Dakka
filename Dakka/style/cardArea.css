@@ -1,13 +1,24 @@
 ﻿.cardArea {
-
+	
 }
 
 .cardArea label {
+	/*display: table-cell;*/
 	margin-bottom: 0px;
 	font: bold 10px arial;
 }
 
+.cardArea .changeWidthButton {
+	display: table-cell;
+}
+
+.cardArea .changeWidthButton button {
+	padding: 3px;
+	margin-top: 50px;
+}
+
 .cardAreaFrame {
+	display: table-cell;
 	border: dashed;
 	border-color: blue;
 	border-width: 1px;
