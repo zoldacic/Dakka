@@ -1,0 +1,26 @@
+﻿{
+	"CommanderShadowsun": {
+		"name": "Commander Shadowsun",
+		"email": "shadowsun@dakka.firebaseio.com",
+		"password": "shadowsun",
+		"src": "img/cards/007-commander-shadowsun.jpg"
+	},
+	"EldorathStarbane": {
+		"name": "Eldorath Starbane",
+		"email": "starbane@dakka.firebaseio.com",
+		"password": "starbane",
+		"src": "img/cards/006-eldorath-starbane.jpg"
+	},
+	"AryaStark": {
+		"name": "Arya Stark",
+		"email": "arya@dakka.firebaseio.com",
+		"password": "arya",
+		"src": "img/cards/got/ffg_gallery_11_44722.jpg"
+	},
+	"DaenerysTargaryen": {
+		"name": "Daenerys Targaryen",
+		"email": "daenerys@dakka.firebaseio.com",
+		"password": "daenerys",
+		"src": "img/cards/got/ffg_gallery_11_125982.jpg"
+	}
+}

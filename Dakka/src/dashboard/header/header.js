@@ -7,12 +7,17 @@
  * # adminPosHeader
  */
 angular.module('app')
-	.directive('header',function(){
+	.directive('header',['loginService', function(loginService){
 		return {
 			templateUrl: '/src/dashboard/header/header.html',
 			restrict: 'E',
 			replace: true,
+			controller: function ($scope) {
+				if (loginService.isLoggedIn()) {
+					$scope.playerName = loginService.getLoggedInPlayerName();
+				}
+			}
     	}
-	});
+	}]);
 
 

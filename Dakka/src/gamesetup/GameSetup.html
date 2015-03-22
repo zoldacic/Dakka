@@ -1,0 +1,19 @@
+﻿
+<div ng-controller="gameSetupController as vm" class="gameSetup">
+	<div ng-hide="vm.isLoggedIn()">
+		<h3>You need to login before creating a new game, duuh</h3>
+	</div>
+	<div ng-show="vm.isLoggedIn()">
+		<form role="form">
+			<div class="form-group">
+				<label>Game</label>
+				<select class="form-control" ng-options="game.name for game in vm.games" ng-model="vm.game" />
+			</div>
+			<div class="form-group">
+				<label>Opponent</label>
+				<select class="form-control" ng-options="player.name for player in vm.players" ng-model="vm.player"></select>
+			</div>
+			<button class="btn btn-primary" type="submit" ng-click="vm.createGameSession()"><div class="fa fa-fw fa-paw"></div>Start fight!</button>
+		</form>
+	</div>
+</div>

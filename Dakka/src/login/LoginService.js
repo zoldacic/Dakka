@@ -1,14 +1,25 @@
 ﻿class LoginService {
 	constructor($firebaseAuth, firebaseService) { 
-		this.$firebaseAuth = $firebaseAuth;
-		this.firebaseService = firebaseService;
-		this.authRef = firebaseService.getAuthRef();
+		this._$firebaseAuth = $firebaseAuth;
+		this._firebaseService = firebaseService;
+		this._authRef = firebaseService.getAuthRef();
+
+		
 	}
 
-	login(email, password, callback) {
-		if (!callback) callback = (authData) => {}
-		this.authRef.$authWithPassword({email: email, password: password}).then(callback);
+	login(player) {		
+		this._authRef.$authWithPassword({email: player.email, password: player.password}).then(() => {
+			this._loggedInPlayer = player;	
+		});
 	} 
+
+	isLoggedIn() {
+		return this._authRef.$getAuth() != null;
+	}
+
+	getLoggedInPlayerName() {
+		return this._loggedInPlayer ? this._loggedInPlayer.name : "";
+	}
 }
 
 export {LoginService}
