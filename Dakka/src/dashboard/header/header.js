@@ -12,10 +12,19 @@ angular.module('app')
 			templateUrl: '/src/dashboard/header/header.html',
 			restrict: 'E',
 			replace: true,
-			controller: function ($scope) {
-				if (loginService.isLoggedIn()) {
-					$scope.playerName = loginService.getLoggedInPlayerName();
+			link: function (scope) {
+
+				var setUsername = function (authData) {
+					scope.playerName = authData.password.email;
 				}
+
+				loginService.onAuth(setUsername);
+
+				//if (loginService.isLoggedIn()) {
+				//	var player = loginService.getLoggedInPlayer();
+					
+					
+				//}
 			}
     	}
 	}]);

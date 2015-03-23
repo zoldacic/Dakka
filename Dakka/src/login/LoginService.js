@@ -17,8 +17,12 @@
 		return this._authRef.$getAuth() != null;
 	}
 
-	getLoggedInPlayerName() {
-		return this._loggedInPlayer ? this._loggedInPlayer.name : "";
+	getLoggedInPlayer() {
+		return this._loggedInPlayer;
+	}
+
+	onAuth(callback) {
+		this._authRef.$onAuth(callback);
 	}
 }
 
