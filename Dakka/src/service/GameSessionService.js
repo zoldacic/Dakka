@@ -3,38 +3,45 @@ import {GameSession} from '../model/virtual/GameSession'
 import {Player} from '../model/virtual/Player'
 
 class GameSessionService { 
-	constructor($q, firebaseService, loginService) {
-		this._$q = $q;
+    constructor($q, $state, firebaseService, loginService, setupService) {
+        this._$q = $q;
+        this._$state = $state;
 		this._firebaseService = firebaseService;
 		this._loginService = loginService;
-	}
+        this._setupService = setupService;
+    }
 
 	createGameSession(game, players) {
+	    let gameRef = null;
 		let loggedInPlayer = new Player(this._loginService.getLoggedInPlayer());
 		
+		let addCardAreasForPlayers = (templateAreas) => {
+				
+		    // Clean out '$$'-variables
+		    templateAreas = angular.fromJson(angular.toJson(templateAreas));
+
+            let savePromises = [];
+		    players.forEach((player) => {
+		        let playerCardAreas = this._firebaseService.getObjectRef("players/" + player.id + "/gameSessions/" + gameRef);
+		        playerCardAreas.$loaded().then((playerCardAreas) => {
+		            playerCardAreas.cardAreas = templateAreas;
+                    savePromises.push(playerCardAreas.$save());
+                });
+            });
+
+            return this._$q.all(savePromises);
+        };	
+
 		// Create card area for the current game session and player from templates
 		let createCardAreasForPlayers = (ref) => {
-            let gameRef = ref.key();
+            gameRef = ref.key();
 
 			// Add current player to list with players
 			players.push(loggedInPlayer);
 
 			let templateAreas = this._firebaseService.getObjectRef("templates/" + game.id + '/cardAreas');
-			templateAreas.$loaded().then((templateAreas) => {
-				
-				// Clean out '$$'-variables
-				templateAreas = angular.fromJson(angular.toJson(templateAreas));
-
-				players.forEach((player) => {
-					let playerCardAreas = this._firebaseService.getObjectRef("players/" + player.id + "/gameSessions/" + gameRef);
-					playerCardAreas.$loaded().then((playerCardAreas) => {
-						playerCardAreas.cardAreas = templateAreas;
-						playerCardAreas.$save();
-					});
-				});
-
-			});	
-		}
+            return templateAreas.$loaded().then(addCardAreasForPlayers);
+}
 
 		let addGameSessionToGameSessions = (gameSessions, players) => {
 			return gameSessions.$add({ gameId: gameSession.gameId });
@@ -45,7 +52,9 @@ class GameSessionService {
 
 		gameSessions.$loaded().
 			then(() => { return addGameSessionToGameSessions(gameSessions, players); }).
-			then(createCardAreasForPlayers);	
+    		then(createCardAreasForPlayers).
+            then(() => { return this._setupService.init(game, gameRef); }).
+    		then(() => { this._$state.go('dashboard.table'); });
 	}
 }
 

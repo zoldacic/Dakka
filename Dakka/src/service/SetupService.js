@@ -1,18 +1,21 @@
 ﻿import {FirebaseService} from '../service/FirebaseService'
 import {TableService} from '../table/TableService'
 import {CardArea} from '../model/virtual/CardArea'
+import {Player} from '../model/virtual/Player'
 import {Planet} from '../model/physical/Planet'
 import {Card} from '../model/physical/Card'
 
 class SetupService {
-	constructor($q, firebaseService, tableService, cardFoldingEnum) { 
+    constructor($q, firebaseService, tableService, loginService, cardFoldingEnum, gameTypeEnum) { 
 		this._$q = $q;
 		this._firebaseService = firebaseService;
 		this._tableService = tableService;			
 		this._cardFoldingEnum = cardFoldingEnum;
-	}
+		this._gameTypeEnum = gameTypeEnum;
+        this._loginService = loginService;
+    }
 
-	init() {
+	initTest() {
 		let cardAreasDB = this._firebaseService.getRef('cardAreas');
 		let planetsDB = this._firebaseService.getRef('cards/planets');
 		let planetsDB0 = new Array(
@@ -40,7 +43,25 @@ class SetupService {
 			this._tableService.cardAreas.push(cardArea);
 			//this._tableService.cardAreas.ref = cardAreasDB;
 		}));
-	}
+    }
+
+		init(game, gameRef) {
+            let exec = (game, gameRef) => {
+            this._tableService.clean();
+            let loggedInPlayer = new Player(this._loginService.getLoggedInPlayer());
+
+            let playerCardAreas = this._firebaseService.getRef("players/" + loggedInPlayer.id + "/gameSessions/" + gameRef + '/cardAreas');
+            
+            return playerCardAreas.$loaded().then(() => {
+                playerCardAreas.forEach((area) => {
+                    let cardArea = new CardArea(playerCardAreas, area, this._cardFoldingEnum);
+                    this._tableService.cardAreas.push(cardArea);
+                }.bind(this));
+});
+                }.bind(this);
+
+            exec(game, gameRef);
+    }
 }
 
 export {SetupService}

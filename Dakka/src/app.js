@@ -10,6 +10,7 @@ import {PlaygroundController} from './playground/PlaygroundController';
 import {PersonaController} from './login/PersonaController';
 import {GameSetupController} from './gamesetup/GameSetupController';
 import {CardFoldingEnum} from './enum/CardFoldingEnum';
+import {GameTypeEnum} from './enum/GameTypeEnum';
 
 angular
 	.module('app', ['firebase', 'ngDragDrop', 'ngTouch', 'ngAnimate', 'ui.router',  'ui.bootstrap', 'angular-loading-bar',  'bootstrapLightbox'])
@@ -20,13 +21,14 @@ angular
 	.service('personaService', PersonaService)
 	.service('gameSessionService', GameSessionService)
 	.service('cardFoldingEnum', CardFoldingEnum)
+    .service('gameTypeEnum', GameTypeEnum)
 	.controller('mainController', MainController)
 	.controller('tableController', TableController)
 	.controller('playgroundController', PlaygroundController)
 	.controller('personaController', PersonaController)
 	.controller('gameSetupController', GameSetupController)
 	.run(["setupService", function(setupService) {
-		setupService.init();
+		setupService.initTest();
 	}])
 	.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 

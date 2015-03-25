@@ -2,12 +2,12 @@
 import {Game} from '../model/virtual/Game'
 
 class GameSetupController {
-	constructor(personaService, loginService, gameSessionService) { 
+    constructor(personaService, loginService, gameSessionService, gameTypeEnum) { 
 		this._personaService = personaService;
 		this._loginService = loginService;
 		this._gameSessionService = gameSessionService;
 
-		this._games = [new Game("WH40kC", "Warhammer 40k Conquest"), new Game("AGoT", "A Game of Thrones")];
+		this._games = [new Game(gameTypeEnum.WH40kC, "Warhammer 40k Conquest"), new Game(gameTypeEnum.AGoT, "A Game of Thrones")];
 	}
 
 	get games() {
