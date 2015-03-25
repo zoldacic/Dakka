@@ -4,6 +4,11 @@
 		<h3>You need to login before creating a new game, duuh</h3>
 	</div>
 	<div ng-show="vm.isLoggedIn()">
+		<div ng-repeat="gameSession in vm.gameSessions">
+			<label>{{gameSession.created}}</label>
+			<button class="btn btn-primary" type="submit">Continue fight!</button>
+		</div>
+
 		<form role="form">
 			<div class="form-group">
 				<label>Game</label>
@@ -13,7 +18,7 @@
 				<label>Opponent</label>
 				<select class="form-control" ng-options="player.name for player in vm.players" ng-model="vm.player"></select>
 			</div>
-			<button class="btn btn-primary" type="submit" ng-click="vm.createGameSession()"><div class="fa fa-fw fa-paw"></div>Start fight!</button>
+			<button class="btn btn-primary" type="submit" ng-click="vm.createGameSession()"><div class="fa fa-fw fa-paw"></div>Launch fight!</button>
 		</form>
 	</div>
 </div>

@@ -8,6 +8,7 @@ class GameSetupController {
 		this._gameSessionService = gameSessionService;
 
 		this._games = [new Game(gameTypeEnum.WH40kC, "Warhammer 40k Conquest"), new Game(gameTypeEnum.AGoT, "A Game of Thrones")];
+		this._gameSessions = [];
 	}
 
 	get games() {
@@ -32,6 +33,14 @@ class GameSetupController {
 
 	set player(value) {
 		this._player = value;
+	}
+
+	get gameSessions() {
+		this._gameSessionService.gameSessions().then((gameSessions) => {
+			this._gameSessions = gameSessions;
+		});		
+
+		return this._gameSessions;
 	}
 
 	isLoggedIn() {

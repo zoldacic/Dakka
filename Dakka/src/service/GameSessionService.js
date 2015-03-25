@@ -44,7 +44,7 @@ class GameSessionService {
 }
 
 		let addGameSessionToGameSessions = (gameSessions, players) => {
-			return gameSessions.$add({ gameId: gameSession.gameId });
+			return gameSessions.$add({ gameId: gameSession.gameId, created: gameSession.created });
 		};
 
 		let gameSession = new GameSession(game);
@@ -55,6 +55,16 @@ class GameSessionService {
     		then(createCardAreasForPlayers).
             then(() => { return this._setupService.init(game, gameRef); }).
     		then(() => { this._$state.go('dashboard.table'); });
+	}
+
+	gameSessions() {
+		return this._loginService.getLoggedInPlayer().
+			then((playerRef) => {
+				let loggedInPlayer = new Player(playerRef);
+				let gameSessions = this._firebaseService.getRef("players/" + loggedInPlayer.id + "/gameSessions");
+
+				return gameSessions.$loaded();
+			});
 	}
 }
 

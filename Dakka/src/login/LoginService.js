@@ -3,14 +3,6 @@
 		this._firebaseService = firebaseService;
 		this._authRef = firebaseService.getAuthRef();
 		this._$filter = $filter;	
-		
-		if (!this._loggedInPlayer && this.isLoggedIn()) {
-			let players = this._firebaseService.getRef("players");
-			players.$loaded().then(() => {
-				let authData = this._authRef.$getAuth();
-				this._loggedInPlayer = this._$filter('filter')(players, {email: authData.password.email})[0];
-			}.bind(this));
-		}
 	}
 
 	login(player) {		
@@ -24,7 +16,24 @@
 	}
 
 	getLoggedInPlayer() {
-		return this._loggedInPlayer;
+		let promise;
+		if (!this._loggedInPlayer && this.isLoggedIn()) {
+			let players = this._firebaseService.getRef("players");
+			promise = players.$loaded().
+				then(() => {
+					let authData = this._authRef.$getAuth();
+					this._loggedInPlayer = this._$filter('filter')(players, {email: authData.password.email})[0];
+
+					return this._loggedInPlayer;
+				}.bind(this));
+
+		} else if (this._loggedInPlayer && this.isLoggedIn()) {
+			promise = new Promise((resolve, reject) => { resolve(this._loggedInPlayer);	});		
+		} else {
+			promise = new Promise((resolve, reject) => { resolve(null); })
+		}
+	
+		return promise;
 	}
 
 	onAuth(callback) {
