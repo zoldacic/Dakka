@@ -1,10 +1,16 @@
 ﻿class LoginService {
-	constructor($firebaseAuth, firebaseService) { 
-		this._$firebaseAuth = $firebaseAuth;
+	constructor($filter, firebaseService) { 
 		this._firebaseService = firebaseService;
 		this._authRef = firebaseService.getAuthRef();
-
+		this._$filter = $filter;	
 		
+		if (!this._loggedInPlayer && this.isLoggedIn()) {
+			let players = this._firebaseService.getRef("players");
+			players.$loaded().then(() => {
+				let authData = this._authRef.$getAuth();
+				this._loggedInPlayer = this._$filter('filter')(players, {email: authData.password.email})[0];
+			}.bind(this));
+		}
 	}
 
 	login(player) {		

@@ -2,6 +2,7 @@ class FirebaseService {
 	constructor($firebase, $firebaseAuth) {
 		this._$firebase = $firebase;
 		this._$firebaseAuth = $firebaseAuth;
+
 		this._baseUrl = "https://dakka.firebaseio.com/";
 	}
 	
@@ -9,6 +10,12 @@ class FirebaseService {
 		let ref = new Firebase(this._baseUrl + entity);
 		let sync = this._$firebase(ref);		
 		return sync.$asArray();
+	}
+
+	getObjectRef(entity) {
+		let ref = new Firebase(this._baseUrl + entity);
+		let sync = this._$firebase(ref);		
+		return sync.$asObject();	
 	}
 	
 	getAuthRef() {

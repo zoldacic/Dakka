@@ -1,11 +1,13 @@
 ﻿
+import {Game} from '../model/virtual/Game'
+
 class GameSetupController {
 	constructor(personaService, loginService, gameSessionService) { 
 		this._personaService = personaService;
 		this._loginService = loginService;
 		this._gameSessionService = gameSessionService;
 
-		this._games = [{id: "WH40kC", name: "Warhammer 40k Conquest"}, {id: "AGoT", name: "A Game of Thrones"}];
+		this._games = [new Game("WH40kC", "Warhammer 40k Conquest"), new Game("AGoT", "A Game of Thrones")];
 	}
 
 	get games() {
