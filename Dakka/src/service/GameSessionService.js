@@ -11,11 +11,11 @@ class GameSessionService {
 
 	createGameSession(game, players) {
 		let loggedInPlayer = new Player(this._loginService.getLoggedInPlayer());
-		let gameRef = null;
 		
 		// Create card area for the current game session and player from templates
-		let createCardAreasForPlayers = () => {		
-			
+		let createCardAreasForPlayers = (ref) => {
+            let gameRef = ref.key();
+
 			// Add current player to list with players
 			players.push(loggedInPlayer);
 
@@ -36,27 +36,6 @@ class GameSessionService {
 			});	
 		}
 
-		let addGameSessionToPlayer = (playerGameSessions) => {
-			return playerGameSessions.$add({ gameRef: gameRef });
-		}
-
-		let addGameSessionToPlayers = (players, ref) => {
-			// Set global game ref
-			gameRef = ref;
-
-			// Add current player to list with players
-			players.push(loggedInPlayer);
-
-			// Add current game session to each participating player
-			let playersGameSessionsPromises = [];
-			players.forEach((player) => {object
-				let playerGameSessions = this._firebaseService.getRef("players/" + player.id + "/gameSessions");
-				playersGameSessionsPromises.push(playerGameSessions.$loaded().then(() => { return addGameSessionToPlayer(playerGameSessions); })); 
-			});	
-
-			return this._$q.all(playersGameSessionsPromises);
-		}
-
 		let addGameSessionToGameSessions = (gameSessions, players) => {
 			return gameSessions.$add({ gameId: gameSession.gameId });
 		};
@@ -66,7 +45,6 @@ class GameSessionService {
 
 		gameSessions.$loaded().
 			then(() => { return addGameSessionToGameSessions(gameSessions, players); }).
-			then((ref) => { return addGameSessionToPlayers(players, ref.key());	}).
 			then(createCardAreasForPlayers);	
 	}
 }
