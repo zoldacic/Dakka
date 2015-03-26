@@ -19,12 +19,6 @@ angular.module('app')
 				}
 
 				loginService.onAuth(setUsername);
-
-				//if (loginService.isLoggedIn()) {
-				//	var player = loginService.getLoggedInPlayer();
-					
-					
-				//}
 			}
     	}
 	}]);

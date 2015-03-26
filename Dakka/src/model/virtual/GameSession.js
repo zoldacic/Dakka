@@ -10,7 +10,7 @@ class GameSession {
 	}
 
 	get created() {
-		return this_created;
+		return this._created;
 	}
 }
 

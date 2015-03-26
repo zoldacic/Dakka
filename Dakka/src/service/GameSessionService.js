@@ -13,7 +13,6 @@ class GameSessionService {
 
 	createGameSession(game, players) {
 	    let gameRef = null;
-		let loggedInPlayer = new Player(this._loginService.getLoggedInPlayer());
 		
 		let addCardAreasForPlayers = (templateAreas) => {
 				
@@ -34,14 +33,19 @@ class GameSessionService {
 
 		// Create card area for the current game session and player from templates
 		let createCardAreasForPlayers = (ref) => {
-            gameRef = ref.key();
+			gameRef = ref.key();
 
 			// Add current player to list with players
-			players.push(loggedInPlayer);
-
-			let templateAreas = this._firebaseService.getObjectRef("templates/" + game.id + '/cardAreas');
-            return templateAreas.$loaded().then(addCardAreasForPlayers);
-}
+			return this._loginService.getLoggedInPlayer().
+				then((playerRef) => {
+					let loggedInPlayer = new Player(playerRef);
+					players.push(loggedInPlayer);				
+				}).
+				then(() => {
+					let templateAreas = this._firebaseService.getObjectRef("templates/" + game.id + '/cardAreas');
+					return templateAreas.$loaded().then(addCardAreasForPlayers);				
+				});
+		}
 
 		let addGameSessionToGameSessions = (gameSessions, players) => {
 			return gameSessions.$add({ gameId: gameSession.gameId, created: gameSession.created });
@@ -61,9 +65,14 @@ class GameSessionService {
 		return this._loginService.getLoggedInPlayer().
 			then((playerRef) => {
 				let loggedInPlayer = new Player(playerRef);
-				let gameSessions = this._firebaseService.getRef("players/" + loggedInPlayer.id + "/gameSessions");
+				let gameSessionsRef = this._firebaseService.getRef("players/" + loggedInPlayer.id + "/gameSessions");
 
-				return gameSessions.$loaded();
+				let gameSessions = [];
+				gameSessionsRef.$loaded().then((gameSessions) => {
+					gameSessionsRef.forEach((gameSession) => {
+						gameSessions.$add(new GameSession());
+					});
+				});
 			});
 	}
 }

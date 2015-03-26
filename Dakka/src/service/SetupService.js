@@ -47,18 +47,24 @@ class SetupService {
 
 		init(game, gameRef) {
             let exec = (game, gameRef) => {
-            this._tableService.clean();
-            let loggedInPlayer = new Player(this._loginService.getLoggedInPlayer());
+            	this._tableService.clean();
 
-            let playerCardAreas = this._firebaseService.getRef("players/" + loggedInPlayer.id + "/gameSessions/" + gameRef + '/cardAreas');
-            
-            return playerCardAreas.$loaded().then(() => {
-                playerCardAreas.forEach((area) => {
-                    let cardArea = new CardArea(playerCardAreas, area, this._cardFoldingEnum);
-                    this._tableService.cardAreas.push(cardArea);
-                }.bind(this));
-});
-                }.bind(this);
+            	return this._loginService.getLoggedInPlayer().
+					then((playerRef) => {
+						let loggedInPlayer = new Player(playerRef);		
+						let playerCardAreas = this._firebaseService.getRef("players/" + loggedInPlayer.id + "/gameSessions/" + gameRef + '/cardAreas');
+
+						return playerCardAreas;
+					}).
+					then((playerCardAreas) => {
+						return playerCardAreas.$loaded().then(() => {
+							playerCardAreas.forEach((area) => {
+								let cardArea = new CardArea(playerCardAreas, area, this._cardFoldingEnum);
+								this._tableService.cardAreas.push(cardArea);
+							}.bind(this));
+						});		
+					});
+			}.bind(this);
 
             exec(game, gameRef);
     }

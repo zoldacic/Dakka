@@ -8,7 +8,7 @@ class GameSetupController {
 		this._gameSessionService = gameSessionService;
 
 		this._games = [new Game(gameTypeEnum.WH40kC, "Warhammer 40k Conquest"), new Game(gameTypeEnum.AGoT, "A Game of Thrones")];
-		this._gameSessions = [];
+		this._gameSessions = null;
 	}
 
 	get games() {
@@ -36,9 +36,11 @@ class GameSetupController {
 	}
 
 	get gameSessions() {
-		this._gameSessionService.gameSessions().then((gameSessions) => {
-			this._gameSessions = gameSessions;
-		});		
+		if (!this._gameSessions) {
+			this._gameSessionService.gameSessions().then((gameSessions) => {
+				this._gameSessions = gameSessions;
+			});		
+		}
 
 		return this._gameSessions;
 	}
