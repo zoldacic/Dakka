@@ -6,7 +6,7 @@
 	<div ng-show="vm.isLoggedIn()">
 		<div ng-repeat="gameSession in vm.gameSessions">
 			<label>{{gameSession.created}}</label>
-			<button class="btn btn-primary" type="submit">Continue fight!</button>
+			<button class="btn btn-primary" ng-click="vm.continueGameSession(gameSession)">Continue fight!</button>
 		</div>
 
 		<form role="form">

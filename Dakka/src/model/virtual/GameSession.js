@@ -1,12 +1,12 @@
 ﻿
 class GameSession {
-	constructor(game) {
-		this._game = game;
-		this._created = Date.now();
+	constructor(gameId, created) {
+		this._gameId = gameId;
+		this._created = created;
 	}
 
 	get gameId() {
-		return this._game.id;
+		return this._gameId;
 	}
 
 	get created() {

@@ -36,13 +36,18 @@ class GameSetupController {
 	}
 
 	get gameSessions() {
-		if (!this._gameSessions) {
-			this._gameSessionService.gameSessions().then((gameSessions) => {
-				this._gameSessions = gameSessions;
-			});		
-		}
+		let _this = this;
+		let listGameSessions = () => {
+			if (!_this._gameSessions) {
+				_this._gameSessionService.gameSessions().then((gameSessions) => {
+					_this._gameSessions = gameSessions;
+				});		
+			}	
+			
+			return _this._gameSessions;
+		};
 
-		return this._gameSessions;
+		return listGameSessions();
 	}
 
 	isLoggedIn() {
@@ -51,6 +56,11 @@ class GameSetupController {
 
 	createGameSession() {
 		this._gameSessionService.createGameSession(this.game, [this.player]);
+	}
+
+
+	continueGameSession(gameSession) {
+		this._gameSessionService.continueGameSession(gameSession);
 	}
 }
 

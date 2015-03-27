@@ -45,17 +45,12 @@ class SetupService {
 		}));
     }
 
-		init(game, gameRef) {
-            let exec = (game, gameRef) => {
+		init(gameRef) {
+            let exec = (gameRef) => {
             	this._tableService.clean();
 
             	return this._loginService.getLoggedInPlayer().
-					then((playerRef) => {
-						let loggedInPlayer = new Player(playerRef);		
-						let playerCardAreas = this._firebaseService.getRef("players/" + loggedInPlayer.id + "/gameSessions/" + gameRef + '/cardAreas');
-
-						return playerCardAreas;
-					}).
+					then((loggedInPlayer) => { return this._firebaseService.getRef("players/" + loggedInPlayer.id + "/gameSessions/" + gameRef + '/cardAreas');	}).
 					then((playerCardAreas) => {
 						return playerCardAreas.$loaded().then(() => {
 							playerCardAreas.forEach((area) => {
@@ -66,7 +61,7 @@ class SetupService {
 					});
 			}.bind(this);
 
-            exec(game, gameRef);
+            exec(gameRef);
     }
 }
 
