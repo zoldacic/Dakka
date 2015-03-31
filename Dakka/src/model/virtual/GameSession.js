@@ -1,16 +1,23 @@
 ﻿
 class GameSession {
-	constructor(gameId, created) {
-		this._gameId = gameId;
-		this._created = created;
+	constructor(ref) {
+		this._ref = ref;
+	}
+
+	get id() {
+		return this._ref.$id;
 	}
 
 	get gameId() {
-		return this._gameId;
+		return this._ref.gameId;
 	}
 
 	get created() {
-		return this._created;
+		return this._ref.created;
+	}
+
+	get cardAreas() {
+		return this._ref.cardAreas;
 	}
 }
 

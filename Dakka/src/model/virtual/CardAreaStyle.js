@@ -4,7 +4,6 @@ class CardArea {
 		this._ref = ref;
 
 		this._cardSize = new Array(100, 139);
-		this._cards = [];
 		this._rotatedCards = false;
 		this._cardPadding = 2;
 		
@@ -44,10 +43,6 @@ class CardArea {
 		return this._ref.heightInCards;
 	}
 
-	get cards() {
-		return this._cards;
-	}
-
 	get rotatedCards() {
 		return this._ref.rotatedCards;
 	}
@@ -59,7 +54,7 @@ class CardArea {
 	set left(value) {
 		if (this._ref.left != value) {
 			this._ref.left = value;
-			this._ref.$save();
+			this._containerRef.$save(this._ref);
 		}
 	}
 
@@ -70,7 +65,7 @@ class CardArea {
 	set top(value) {
 		if (this._ref.top != value) {
 			this._ref.top = value;
-			this._ref.$save();
+			this._containerRef.$save(this._ref);
 		}	
 	}
 

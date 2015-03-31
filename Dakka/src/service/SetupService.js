@@ -6,8 +6,9 @@ import {Planet} from '../model/physical/Planet'
 import {Card} from '../model/physical/Card'
 
 class SetupService {
-    constructor($q, firebaseService, tableService, loginService, cardFoldingEnum, gameTypeEnum) { 
-		this._$q = $q;
+    constructor($q, $filter, firebaseService, tableService, loginService, cardFoldingEnum, gameTypeEnum) { 
+    	this._$q = $q;
+    	this._$filter = $filter;
 		this._firebaseService = firebaseService;
 		this._tableService = tableService;			
 		this._cardFoldingEnum = cardFoldingEnum;
@@ -45,23 +46,66 @@ class SetupService {
 		}));
     }
 
-		init(gameRef) {
-            let exec = (gameRef) => {
-            	this._tableService.clean();
+	init(gameSession) {
+		let _this = this;
+		_this._tableService.clean();
 
-            	return this._loginService.getLoggedInPlayer().
-					then((loggedInPlayer) => { return this._firebaseService.getRef("players/" + loggedInPlayer.id + "/gameSessions/" + gameRef + '/cardAreas');	}).
-					then((playerCardAreas) => {
-						return playerCardAreas.$loaded().then(() => {
-							playerCardAreas.forEach((area) => {
-								let cardArea = new CardArea(playerCardAreas, area, this._cardFoldingEnum);
-								this._tableService.cardAreas.push(cardArea);
-							}.bind(this));
-						});		
+		//let listCardAreas = (gameSessionRef) => {
+		//	let cardAreas = _this._firebaseService.getRef("common/gameSessions/" + gameSessionRef + "/cardAreas");
+		//	return cardAreas.$loaded();
+		//}
+
+		//let listCardAreaStyles = (player, gameSession) => {
+		//	let  cardAreaStyles = _this._firebaseService.getRef("players/" + player.id + "/gameSessions/" + gameSession.id + "/cardAreaStyles");
+		//	return cardAreaStyles.$loaded();
+		//}
+
+		//let addCardAreaStyleToCardArea = (cardArea, cardAreaStyles) => {
+		//	let cardAreaStyle = _this._$filter('filter')(cardAreaStyles, { $id: cardArea.id }, true);
+		//	cardArea.style = cardAreaStyle;
+		//}
+
+		//let addCardAreaStylesToCardAreas = (cardAreas, cardAreaStyles) => {
+		//	cardAreas.forEach((cardArea) => addCardAreaStyleToCardArea(cardArea, cardAreaStyles));		
+		//}
+
+		_this._loginService.getLoggedInPlayer().
+			then((player) => {
+				return listCardAreaStyles(player, gameSession).
+					then((cardAreaStyles) => { 
+						angular.forEach(gameSession.cardAreas, (area) => {
+							let cardArea;
+							let cardAreaStyle;
+							let promises = [];
+
+							promises.push(_this._firebaseService.getObjectRef("common/gameSessions/" + gameSession.id + "/cardAreas/" + area.id).$loaded().
+								then((cd) => { cardArea = new CardArea(cd, this._cardFoldingEnum); }));
+
+							promises.push(_this._firebaseService.getObjectRef("players/" + player.id + "/gameSessions/" + gameSession.id + "/cardAreaStyles/" + area.id).$loaded().
+								then((style) => { cardAreaStyle = new CardAreaStyle(style); }));
+
+							_this._$q.all(promises).then(() => { cardArea.style = cardAreaStyle; });
+							this._tableService.cardAreas.push(cardArea);
+						});
 					});
-			}.bind(this);
+			});
 
-            exec(gameRef);
+            //let exec = (gameRef) => {
+            //	this._tableService.clean();
+
+            //	return this._loginService.getLoggedInPlayer().
+			//		then((loggedInPlayer) => { return this._firebaseService.getRef("players/" + loggedInPlayer.id + "/gameSessions/" + gameRef + '/cardAreas');	}).
+			//		then((playerCardAreas) => {
+			//			return playerCardAreas.$loaded().then(() => {
+			//				playerCardAreas.forEach((area) => {
+			//					let cardArea = new CardArea(playerCardAreas, area, this._cardFoldingEnum);
+			//					this._tableService.cardAreas.push(cardArea);
+			//				}.bind(this));
+			//			});		
+			//		});
+			//}.bind(this);
+
+           // exec(gameRef);
     }
 }
 

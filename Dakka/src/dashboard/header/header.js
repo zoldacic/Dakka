@@ -15,7 +15,11 @@ angular.module('app')
 			link: function (scope) {
 
 				var setUsername = function (authData) {
-					scope.playerName = authData.password.email;
+					if (authData != null) {
+						scope.playerName = authData.password.email;
+					} else {
+						scope.playerName = "";
+					}					
 				}
 
 				loginService.onAuth(setUsername);

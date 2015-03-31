@@ -12305,6 +12305,7 @@
     <Content Include="src\dashboard\stats\stats.html" />
     <Content Include="src\dashboard\stats\stats.js" />
     <Content Include="src\enum\GameTypeEnum.js" />
+    <Content Include="src\model\virtual\CardAreaStyle.js" />
     <Content Include="src\model\virtual\Game.js" />
     <Content Include="src\service\GameSessionService.js" />
     <Content Include="src\gamesetup\GameSetupController.js" />
@@ -12370,7 +12371,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties node__modules_2angular-dragdrop_2package_1json__JSONSchema="http://json.schemastore.org/package" package_1json__JSONSchema="http://json.schemastore.org/package" />
+      <UserProperties package_1json__JSONSchema="http://json.schemastore.org/package" node__modules_2angular-dragdrop_2package_1json__JSONSchema="http://json.schemastore.org/package" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
