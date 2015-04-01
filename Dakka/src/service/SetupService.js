@@ -46,7 +46,7 @@ class SetupService {
 		}));
     }
 
-	init(gameSession) {
+	init(gameSessionRef) {
 		let _this = this;
 		_this._tableService.clean();
 
@@ -55,10 +55,10 @@ class SetupService {
 		//	return cardAreas.$loaded();
 		//}
 
-		//let listCardAreaStyles = (player, gameSession) => {
-		//	let  cardAreaStyles = _this._firebaseService.getRef("players/" + player.id + "/gameSessions/" + gameSession.id + "/cardAreaStyles");
-		//	return cardAreaStyles.$loaded();
-		//}
+		let listCardAreaSettings = (player, gameSessionRef) => {
+			let cardAreaSettings = _this._firebaseService.getRef("players/" + player.id + "/gameSessions/" + gameSessionRef + "/cardAreaSettings");
+			return cardAreaStyles.$loaded();
+		}
 
 		//let addCardAreaStyleToCardArea = (cardArea, cardAreaStyles) => {
 		//	let cardAreaStyle = _this._$filter('filter')(cardAreaStyles, { $id: cardArea.id }, true);
@@ -71,8 +71,8 @@ class SetupService {
 
 		_this._loginService.getLoggedInPlayer().
 			then((player) => {
-				return listCardAreaStyles(player, gameSession).
-					then((cardAreaStyles) => { 
+				return listCardAreaSettings(player, gameSession).
+					then((cardAreaSettings) => { 
 						angular.forEach(gameSession.cardAreas, (area) => {
 							let cardArea;
 							let cardAreaStyle;

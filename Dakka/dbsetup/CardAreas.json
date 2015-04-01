@@ -1,42 +1,46 @@
 ﻿{
-	"EnemyCardPile": {
-		"heightInCards": 1,
-		"name": "Enemy Card Pile",
-		"widthInCards": 1,
-		"rotatedCards":  false,
-		"column": 1,
-		"row":  1
+	"cardAreas": {
+		"EnemyCardPile": {
+			"notnull": "1"
+		},
+		"EnemyHQ": {
+			"notnull": "1"
+		},
+		"Planets": {
+			"notnull": "1"
+		},
+		"MyCardPile": {
+			"notnull": "1"
+		},
+		"MyHQ": {
+			"notnull": "1"
+		}
 	},
-	"EnemyHQ": {
-		"heightInCards": 1,
-		"name": "Enemy HQ",
-		"widthInCards": 1,
-		"rotatedCards":  false,
-		"column": 5,
-		"row": 1
-	},
-	"Planets": {
-		"heightInCards": 1,
-		"name": "Planets",
-		"widthInCards": 7,
-		"rotatedCards":  true,
-		"column": 1,
-		"row":  2
-	},
-	"MyCardPile": {
-		"heightInCards": 1,
-		"name": "My Card Pile",
-		"widthInCards": 1,
-		"rotatedCards":  false,
-		"column": 1,
-		"row": 3
-	},
-	"MyHQ": {
-		"heightInCards": 1,
-		"name": "My HQ",
-		"widthInCards": 1,
-		"rotatedCards":  false,
-		"column": 5,
-		"row": 3
+	"cardAreaSettings": {
+		"EnemyCardPile": {
+			"name": "Enemy Card Pile",
+			"top": 0,
+			"left": 0
+		},
+		"EnemyHQ": {
+			"name": "Enemy HQ",
+			"top": 0,
+			"left": 0
+		},
+		"Planets": {
+			"name": "Planets",
+			"top": 0,
+			"left": 0
+		},
+		"MyCardPile": {
+			"name": "My Card Pile",
+			"top": 0,
+			"left": 0
+		},
+		"MyHQ": {
+			"name": "My HQ",
+			"top": 0,
+			"left": 0
+		}
 	}
 }

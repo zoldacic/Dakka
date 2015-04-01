@@ -1,10 +1,9 @@
 ﻿
-class CardArea {
+class CardAreaSettings {
 	constructor(ref, cardFoldingEnum) { 
 		this._ref = ref;
 
 		this._cardSize = new Array(100, 139);
-		this._rotatedCards = false;
 		this._cardPadding = 2;
 		
 		this._cardFoldingEnum = cardFoldingEnum;
@@ -18,34 +17,7 @@ class CardArea {
 
 	get name() {
 		return this._ref.name;
-	}
-		
-	get widthInPixels() {
-		let width = this._cardSize[0];
-
-		if (this._cards.length > 1) {
-			width = this.getCardPositionLeft(this._cards.length-1) + this._cardSize[0];
-		}			
-			
-		return width + this._cardPadding * 2;
-	}
-
-	get widthInCards() {
-		return this._ref.widthInCards;
-	}
-
-	get heightInPixels() {
-		let height = this._rotatedCards ? this._cardSize[0] * this.heightInCards: this._cardSize[1] * this.heightInCards;
-		return height + this._cardPadding * 2;
-	}
-
-	get heightInCards() {
-		return this._ref.heightInCards;
-	}
-
-	get rotatedCards() {
-		return this._ref.rotatedCards;
-	}
+	}	
 
 	get left() {
 		return this._ref.left;
@@ -104,4 +76,4 @@ class CardArea {
 	}
 }
 
-export {CardArea}
+export {CardAreaSettings}

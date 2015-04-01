@@ -25,22 +25,23 @@ class GameSessionService {
 		// Reset list with game sessions
 		this._gameSessions.stale = true;
 		
-		let addCardAreasForPlayers = (templateAreas) => {
-				
-		    // Clean out '$$'-variables
-		    templateAreas = angular.fromJson(angular.toJson(templateAreas));
-
-		    let savePromises = [];
-
-		    let commonCardAreas = this._firebaseService.getObjectRef("common/gameSessions/" + gameSessionRef);
+		let addCardArea = (templateAreas) => {
+			let commonCardAreas = this._firebaseService.getObjectRef("common/gameSessions/" + gameSessionRef);
 			commonCardAreas.$loaded().
 					then((commonCardAreas) => { commonCardAreas.cardAreas = templateAreas; }).
-		    		then(() => { savePromises.push(commonCardAreas.$save()); });
+		    		then(() => { return commonCardAreas.$save(); });
+		};
 
+		let addCardAreaSettingsForPlayers = (templateAreaSettings) => {
+				
+		    // Clean out '$$'-variables
+			templateAreaSettings = angular.fromJson(angular.toJson(templateAreaSettings));
+
+		    let savePromises = [];
             players.forEach((player) => {
             	let playerCardAreas = this._firebaseService.getObjectRef("players/" + player.id + "/gameSessions/" + gameSessionRef);
             	playerCardAreas.$loaded().
-					then((playerCardAreas) => { playerCardAreas.cardAreas = templateAreas; }).
+					then((playerCardAreas) => { playerCardAreas.cardAreaSettings = templateAreaSettings; }).
 		    		then(() => { savePromises.push(playerCardAreas.$save()); });
             });
 
@@ -52,11 +53,15 @@ class GameSessionService {
 			gameSessionRef = ref.key();
 
 			// Add current player to list with players
-			return this._loginService.getLoggedInPlayer().
+			return this._loginService.getLoggedInPlayer().	
 				then((loggedInPlayer) => { players.push(loggedInPlayer); }).
 				then(() => {
+					let templateAreaSettings = this._firebaseService.getObjectRef("templates/" + game.id + '/cardAreaSettings');
+					return templateAreaSettings.$loaded().then(addCardAreaSettingsForPlayers);				
+				}).
+				then(() => {
 					let templateAreas = this._firebaseService.getObjectRef("templates/" + game.id + '/cardAreas');
-					return templateAreas.$loaded().then(addCardAreasForPlayers);				
+					return templateAreas.$loaded().then(addCardArea);							
 				});
 		}
 
