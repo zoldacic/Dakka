@@ -1,3 +1,12 @@
-﻿.gameSetup button {
+﻿.gameSetup launchButton {
 	width: 120px;
+}
+
+.gameSetup .currentGameSession {
+	padding: 5px;
+}
+
+.gameSetup .continueButton {
+	height: 24px;
+	padding: 0 5px;
 }

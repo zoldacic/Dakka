@@ -8,8 +8,8 @@ class GameSession {
 		return this._ref.$id;
 	}
 
-	get gameId() {
-		return this._ref.gameId;
+	get gameType() {
+		return this._ref.gameType;
 	}
 
 	get created() {
