@@ -15,15 +15,12 @@ class GameSessionService {
     }
 
 	continueGameSession(gameSession) {
-		this._setupService.init(gameSession);
+		this._setupService.init(gameSession.id);
 		this._$state.go('dashboard.table'); 
 	}
 
 	createGameSession(game, players) {
 		let gameSessionRef = null;
-
-		// Reset list with game sessions
-		this._gameSessions.stale = true;
 		
 		let addCardArea = (templateAreas) => {
 			let commonCardAreas = this._firebaseService.getObjectRef("common/gameSessions/" + gameSessionRef);
@@ -85,7 +82,6 @@ class GameSessionService {
 			let playerGameSessionsRef = _this._firebaseService.getRef("players/" + loggedInPlayer.id + "/gameSessions");
 
 			_this._gameSessions = [];
-			_this._gameSessions.stale = false;
 			return playerGameSessionsRef.$loaded().then((playerGameSessionsRef) => {
 				let sessionPromises = [];
 				playerGameSessionsRef.forEach((playerGameSessionRef) => { 

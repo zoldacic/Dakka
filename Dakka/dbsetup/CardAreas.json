@@ -19,28 +19,28 @@
 	"cardAreaSettings": {
 		"EnemyCardPile": {
 			"name": "Enemy Card Pile",
-			"top": 0,
-			"left": 0
+			"top": "0px",
+			"left": "0px"
 		},
 		"EnemyHQ": {
 			"name": "Enemy HQ",
-			"top": 0,
-			"left": 0
+			"top": "0px",
+			"left": "0px"
 		},
 		"Planets": {
 			"name": "Planets",
-			"top": 0,
-			"left": 0
+			"top": "0px",
+			"left": "0px"
 		},
 		"MyCardPile": {
 			"name": "My Card Pile",
-			"top": 0,
-			"left": 0
+			"top": "0px",
+			"left": "0px"
 		},
 		"MyHQ": {
 			"name": "My HQ",
-			"top": 0,
-			"left": 0
+			"top": "0px",
+			"left": "0px"
 		}
 	}
 }

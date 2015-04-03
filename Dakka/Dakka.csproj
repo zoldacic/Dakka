@@ -12371,7 +12371,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties node__modules_2angular-dragdrop_2package_1json__JSONSchema="http://json.schemastore.org/package" package_1json__JSONSchema="http://json.schemastore.org/package" />
+      <UserProperties package_1json__JSONSchema="http://json.schemastore.org/package" node__modules_2angular-dragdrop_2package_1json__JSONSchema="http://json.schemastore.org/package" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

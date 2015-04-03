@@ -2,13 +2,16 @@
 import {Game} from '../model/virtual/Game'
 
 class GameSetupController {
-    constructor(personaService, loginService, gameSessionService, gameTypeEnum) { 
+	constructor($scope, personaService, loginService, gameSessionService, gameTypeEnum) { 
+		this._$scope = $scope;
+
+		this._loadingGameSessions = false;
 		this._personaService = personaService;
 		this._loginService = loginService;
 		this._gameSessionService = gameSessionService;
 
 		this._games = [new Game(gameTypeEnum.WH40kC, "Warhammer 40k Conquest"), new Game(gameTypeEnum.AGoT, "A Game of Thrones")];
-		this._gameSessions = null;
+		this._gameSessionsInfo = { stale: true, list: [] };
 	}
 
 	get games() {
@@ -37,17 +40,25 @@ class GameSetupController {
 
 	get gameSessions() {
 		let _this = this;
-		let listGameSessions = () => {
-			if (!_this._gameSessions) {
-				_this._gameSessionService.gameSessions().then((gameSessions) => {
-					_this._gameSessions = gameSessions;
-				});		
-			}	
+		//let listGameSessions = () => {
+			if (!_this._loadingGameSessions) {
+				_this._loadingGameSessions = true;
+				if (_this._gameSessionsInfo.stale) {
+					_this._gameSessionService.gameSessions().then((gameSessions) => {
+						_this._gameSessionsInfo.list = gameSessions;
+						_this._gameSessionsInfo.stale = false;
+						_this._loadingGameSessions = false;
+						if(!_this._$scope.$$phase) {
+							_this._$scope.$apply();
+						}
+					});
+				}	
+			}
 			
-			return _this._gameSessions;
-		};
+			return _this._gameSessionsInfo.list;
+		//};
 
-		return listGameSessions();
+		//return listGameSessions();
 	}
 
 	isLoggedIn() {

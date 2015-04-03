@@ -26,7 +26,7 @@ class CardAreaSettings {
 	set left(value) {
 		if (this._ref.left != value) {
 			this._ref.left = value;
-			this._containerRef.$save(this._ref);
+			this._ref.$save();
 		}
 	}
 
@@ -37,7 +37,7 @@ class CardAreaSettings {
 	set top(value) {
 		if (this._ref.top != value) {
 			this._ref.top = value;
-			this._containerRef.$save(this._ref);
+			this._ref.$save();
 		}	
 	}
 
