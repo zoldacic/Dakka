@@ -40,25 +40,22 @@ class GameSetupController {
 
 	get gameSessions() {
 		let _this = this;
-		//let listGameSessions = () => {
-			if (!_this._loadingGameSessions) {
-				_this._loadingGameSessions = true;
-				if (_this._gameSessionsInfo.stale) {
-					_this._gameSessionService.gameSessions().then((gameSessions) => {
-						_this._gameSessionsInfo.list = gameSessions;
-						_this._gameSessionsInfo.stale = false;
-						_this._loadingGameSessions = false;
-						if(!_this._$scope.$$phase) {
-							_this._$scope.$apply();
-						}
-					});
-				}	
-			}
-			
-			return _this._gameSessionsInfo.list;
-		//};
 
-		//return listGameSessions();
+		if (!_this._loadingGameSessions) {
+			_this._loadingGameSessions = true;
+			if (_this._gameSessionsInfo.stale) {
+				_this._gameSessionService.gameSessions().then((gameSessions) => {
+					_this._gameSessionsInfo.list = gameSessions;
+					_this._gameSessionsInfo.stale = false;
+					_this._loadingGameSessions = false;
+					if(!_this._$scope.$$phase) {
+						_this._$scope.$apply();
+					}
+				});
+			}	
+		}
+			
+		return _this._gameSessionsInfo.list;
 	}
 
 	isLoggedIn() {
