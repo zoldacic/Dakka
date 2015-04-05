@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/WebCrawler/bin/Debug
+/WebCrawler/obj/Debug
+/.vs/Dakka/v14/vbcs.cache
+/.vs/Dakka/vbcs.cache
+/Dakka/obj/Debug/Dakka.csproj.FileListAbsolute.txt
+/Dakka/obj/Debug/Dakka.csprojResolveAssemblyReference.cache
