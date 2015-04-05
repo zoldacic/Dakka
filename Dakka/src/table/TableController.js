@@ -20,6 +20,53 @@ class TableController {
 		return this._positionedCardAreas;
 	}
 
+	get verifyCardDrop()  {
+		let returnFunction = (dragElement) => {
+			if (dragElement[0].classList.contains('card')) {
+				
+				// Make frame smaller
+				let cardsInStack = $(dragElement[0]).parent().children().length - 1;
+
+				if (cardsInStack == 0) {
+					cardsInStack = 1;
+				}
+				
+				return true;
+			} else {
+				return false;
+			}				
+		}
+
+		return {
+			accept: returnFunction
+		};
+	}
+
+	get verifyCardAreaDrop()  {
+		let _this = this;
+		let returnFunction = (dragElement) => {
+			if (dragElement[0].classList.contains('cardArea')) {
+				let cardAreaName = $(dragElement[0]).find("label")[0].textContent.trim();
+				let cardArea = _this._$filter('filter')(_this.cardAreas, {name: cardAreaName}, true)[0];
+					
+				cardArea.top = dragElement[0].style.top;
+				cardArea.left = dragElement[0].style.left;
+
+				return true;
+			} else {
+				return false;
+			}				
+		}
+
+		return {
+			accept: returnFunction
+		};
+	}
+
+	isFactionSelectionPhase() {
+		return this._tableService.isFactionSelectionPhase;
+	}
+
 	startDraggingCard(event, ui, {card: card}) {
 		card.startDragging();
 	}
@@ -101,48 +148,6 @@ class TableController {
 			this._lightbox.openModal(cards, index);
 		}
 	};
-
-	get verifyCardDrop()  {
-		let returnFunction = (dragElement) => {
-			if (dragElement[0].classList.contains('card')) {
-				
-				// Make frame smaller
-				let cardsInStack = $(dragElement[0]).parent().children().length - 1;
-
-				if (cardsInStack == 0) {
-					cardsInStack = 1;
-				}
-				
-				return true;
-			} else {
-				return false;
-			}				
-		}
-
-		return {
-			accept: returnFunction
-		};
-	}
-
-	get verifyCardAreaDrop()  {
-		let returnFunction = (dragElement) => {
-			if (dragElement[0].classList.contains('cardArea')) {
-				let cardAreaName = $(dragElement[0]).find("label")[0].textContent.trim();
-				let cardArea = this._$filter('filter')(this.cardAreas, {name: cardAreaName}, true)[0];
-					
-				cardArea.top = dragElement[0].style.top;
-				cardArea.left = dragElement[0].style.left;
-
-				return true;
-			} else {
-				return false;
-			}				
-		}.bind(this);
-
-		return {
-			accept: returnFunction
-		};
-	}
 
 	getTimes(times) {
 		return new Array(times);

@@ -1,0 +1,12 @@
+﻿
+<div class="panel panel-green" ng-controller="phaseSetupController as phase">
+	<div class="panel-heading">{{vm.phase.text}}</div>
+	<div class="panel-body">
+		<form role="form">
+			<div class="form-group">
+				<select class="form-control" ng-options="faction.name for faction in phase.factions" ng-model="phase.playerFaction"></select>
+			</div>
+		</form>
+		<button class="btn btn-default" ng-click="phase.playerDoneWithPhase">I'm done!</button>
+	</div>
+</div>

@@ -4,6 +4,10 @@ class GameSession {
 		this._ref = ref;
 	}
 
+	get phase() {
+		return this._ref.phase;
+	}
+
 	get id() {
 		return this._ref.$id;
 	}

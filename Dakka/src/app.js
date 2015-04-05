@@ -6,11 +6,16 @@ import {LoginService} from './login/LoginService';
 import {PersonaService} from './login/PersonaService';
 import {FirebaseService} from './service/FirebaseService';
 import {GameSessionService} from './service/GameSessionService';
+import {PhaseService} from './service/PhaseService';
 import {PlaygroundController} from './playground/PlaygroundController';
 import {PersonaController} from './login/PersonaController';
 import {GameSetupController} from './gamesetup/GameSetupController';
+import {PhaseSetupController} from './phases/PhaseSetupController';
+
 import {CardFoldingEnum} from './enum/CardFoldingEnum';
 import {GameTypeEnum} from './enum/GameTypeEnum';
+import {PhaseEnum} from './enum/PhaseEnum';
+import {FactionEnum} from './enum/FactionEnum';
 
 angular
 	.module('app', ['firebase', 'ngDragDrop', 'ngTouch', 'ngAnimate', 'ui.router',  'ui.bootstrap', 'angular-loading-bar',  'bootstrapLightbox'])
@@ -20,13 +25,17 @@ angular
 	.service('loginService', LoginService)
 	.service('personaService', PersonaService)
 	.service('gameSessionService', GameSessionService)
+	.service('phaseService', PhaseService)
 	.service('cardFoldingEnum', CardFoldingEnum)
     .service('gameTypeEnum', GameTypeEnum)
+	.service('phaseEnum', PhaseEnum)
+	.service('factionEnum', FactionEnum)
 	.controller('mainController', MainController)
 	.controller('tableController', TableController)
 	.controller('playgroundController', PlaygroundController)
 	.controller('personaController', PersonaController)
 	.controller('gameSetupController', GameSetupController)
+	.controller('phaseSetupController', PhaseSetupController)
 	.run(["setupService", function(setupService) {
 		setupService.initTest();
 	}])
@@ -40,6 +49,7 @@ angular
 			.state('dashboard',		{ url:'/dashboard', templateUrl: '/src/dashboard/main.html'})
 		    .state('dashboard.home',{ url:'/home', controller: 'mainController', templateUrl:'/src/dashboard/home.html'})
 			.state('dashboard.table',{ url:'/table', controller: 'tableController', templateUrl:'/src/table/table.html'})
+			.state('dashboard.table.phaseSetup',{ url:'/phasesetup', controller: 'phaseSetupController', templateUrl:'/src/phases/phaseSetup.html'})
 			.state('dashboard.login',{ url:'/login', controller: 'personaController', templateUrl:'/src/login/personas.html'})
 			.state('dashboard.gamesetup',{ url:'/gamesetup', controller: 'gameSetupController', templateUrl:'/src/gamesetup/gamesetup.html'});
 	}])
