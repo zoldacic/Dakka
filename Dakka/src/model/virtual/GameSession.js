@@ -2,6 +2,11 @@
 class GameSession {
 	constructor(ref) {
 		this._ref = ref;
+		this._cardAreas = [];
+	}
+
+	get ref() {
+		return this._ref;
 	}
 
 	get phase() {
@@ -22,6 +27,10 @@ class GameSession {
 
 	get cardAreas() {
 		return this._ref.cardAreas;
+	}
+
+	set cardAreas(value) {
+		this._cardAreas = value;
 	}
 }
 

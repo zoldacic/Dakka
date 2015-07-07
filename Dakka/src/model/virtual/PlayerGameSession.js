@@ -4,6 +4,10 @@ class PlayerGameSession {
 		this._ref = ref;
 	}
 
+	get ref() {
+		return this._ref;
+	}
+
 	get id() {
 		return this._ref.$id;
 	}

@@ -56,10 +56,7 @@ class SetupService {
 		//	return cardAreas.$loaded();
 		//}
 
-		let listCardAreaList = (gameSessionRef) => {
-			let cardAreaList = _this._firebaseService.getRef("common/gameSessions/" + gameSessionRef + "/cardAreas");
-			return cardAreaList.$loaded();
-		}
+
 
 		//let addCardAreaStyleToCardArea = (cardArea, cardAreaStyles) => {
 		//	let cardAreaStyle = _this._$filter('filter')(cardAreaStyles, { $id: cardArea.id }, true);
@@ -70,22 +67,7 @@ class SetupService {
 		//	cardAreas.forEach((cardArea) => addCardAreaStyleToCardArea(cardArea, cardAreaStyles));		
 		//}
 
-		_this._loginService.getLoggedInPlayer().
-			then((player) => {
-				return listCardAreaList(gameSessionRef).
-					then((cardAreaList) => { 
-						angular.forEach(cardAreaList, (cardAreaListItem) => {
-							let promises = [];
-							promises.push(_this._firebaseService.getObjectRef("players/" + player.id + "/gameSessions/" + gameSessionRef + "/cardAreaSettings/" + cardAreaListItem.$id).$loaded());
-							promises.push(_this._firebaseService.getObjectRef("common/gameSessions/" + gameSessionRef + "/cardAreas/" + cardAreaListItem.$id).$loaded());
-							
-							_this._$q.all(promises).then((result) => { 
-									let cardAreaSettings = new CardAreaSettings(result[0], this._cardFoldingEnum); 
-									_this._tableService.cardAreas.push(new CardArea(result[1], cardAreaSettings));
-							});
-						});
-					});
-			});
+
 
             //let exec = (gameRef) => {
             //	this._tableService.clean();

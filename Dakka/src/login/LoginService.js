@@ -20,9 +20,8 @@ class LoginService {
 	getLoggedInPlayer() {
 		let promise;
 		if (!this._loggedInPlayer && this.isLoggedIn()) {
-			let players = this._firebaseService.getRef("players");
-			promise = players.$loaded().
-				then(() => {
+			promise = this._firebaseService.getPlayersRef().
+				then((players) => {
 					let authData = this._authRef.$getAuth();
 					this._loggedInPlayer = this._$filter('filter')(players, {email: authData.password.email})[0];
 					return new Player(this._loggedInPlayer);
@@ -31,7 +30,7 @@ class LoginService {
 		} else if (this._loggedInPlayer && this.isLoggedIn()) {
 			promise = new Promise((resolve, reject) => { resolve(new Player(this._loggedInPlayer));	});		
 		} else {
-			promise = new Promise((resolve, reject) => { resolve(null); })
+			promise = new Promise((resolve, reject) => { reject(null); })
 		}
 	
 		return promise;
