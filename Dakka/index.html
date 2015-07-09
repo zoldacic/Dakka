@@ -10,16 +10,35 @@
     <meta name="mobile-web-app-capable" content="yes">
   </head>
   <body>
+    <script language="javascript">
+      window.onerror = function (errorMsg, url, lineNumber) {
+    alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);
+}
+      
+      // window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
+      //     alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber
+      //     + ' Column: ' + column + ' StackTrace: ' +  errorObj);
+      // }
+    </script>
+    
   	<link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
   	<link href="/node_modules/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
 
   	<link href="/node_modules/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css" rel="stylesheet" />
   	<link href="/node_modules/angular-loading-bar/build/loading-bar.css" rel="stylesheet" />
   	<link href="/node_modules/font-awesome/css/font-awesome.css" rel="stylesheet" />
-  	<link href="/node_modules/metismenu/dist/metisMenu.css" rel="stylesheet" />
-
-  	<script src="/node_modules/jquery/dist/jquery.js"></script>  	
+  	<link href="/node_modules/metismenu/dist/metisMenu.css" rel="stylesheet" /> 	      
+    
+	  <script src="/node_modules/jquery/dist/jquery.js"></script>
   	<script src="/node_modules/jquery-ui-browserify/dist/jquery-ui.js"></script>
+        
+    <!--<script src="/node_modules/requirejs/require.js"></script>  -->
+    <script src="/node_modules/es6-symbol/polyfill-web.js"></script> 
+    
+    <script language="javascript">
+     
+    </script>    
+    
   	<script src="/node_modules/angular/angular.js"></script>
   	<script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
   	<script src="/node_modules/angular-bootstrap/dist/ui-bootstrap.js"></script>
@@ -35,16 +54,15 @@
   	<script src="/node_modules/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script>
   	<script src="/node_modules/metismenu/dist/metisMenu.js"></script>
   	
-  	<script src="./dist/app.js"> </script>  
+  	<script src="/dist/app.js"> </script>  
+    
+    <script src="http://10.0.1.5:8080/target/target-script-min.js"></script>
 
 	<!-- SBADMIN -->	  
   	<link href="/sbadmin/styles/sb-admin-2.css" rel="stylesheet" />
 	<link href="/sbadmin/styles/main.css" rel="stylesheet" />
 
   	<!--<link href="/style/bootstrap_theme_slate.css" rel="stylesheet"> /-->
-  	
-
-  	
 
   	<script src="/sbadmin/js/sb-admin-2.js"></script>
   	<script src="/src/dashboard/stats/stats.js"></script>
@@ -62,6 +80,8 @@
   	<div ng-app="app">	
 	  	<div ui-view></div>
 	  </div>
+    
+    HEJ HEJ HALLÅ !!!!
   </body>
 </html>
 
