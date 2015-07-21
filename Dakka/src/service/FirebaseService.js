@@ -47,12 +47,15 @@ class FirebaseService {
 		return this.getObjectRef("common/gameSessions/" + gameSessionId + "/cardAreas/" + cardAreaRef.$id);
 	}
 
-	getCardAreas(player, gameSessionId) {		
+
+  --- REDA UT DENNA !!!!
+  
+	getCardAreas(gameSessionId) {		
 		return this.getCardAreasRef(gameSessionId).then((cardAreasRef) => { 
 			cardAreas = [];
 			cardAreasRef.forEach((cardAreaRef) => {
 				let promises = [];
-				promises.push(this.getCardAreaSettings(player, gameSessionId, cardAreaRef));
+				//promises.push(this.getCardAreaSettings(player, gameSessionId, cardAreaRef));
 				promises.push(this.getCardArea(player, gameSessionId, cardAreaRef));
 							
 				return this._$q.all(promises).then((result) => { 
