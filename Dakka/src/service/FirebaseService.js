@@ -43,33 +43,36 @@ class FirebaseService {
 		return authObj;
 	}
 
-	getCardArea(player, gameSessionId, cardAreaRef) {
-		return this.getObjectRef("common/gameSessions/" + gameSessionId + "/cardAreas/" + cardAreaRef.$id);
+	getCardArea(gameSessionId, cardAreaRef) {
+		return this.getObjectRef("gameSessions/" + gameSessionId + "/cardAreas/" + cardAreaRef.$id);
 	}
 
-
-  --- REDA UT DENNA !!!!
-  
-	getCardAreas(gameSessionId) {		
+	getCardAreas(player, gameSessionId) {		
 		return this.getCardAreasRef(gameSessionId).then((cardAreasRef) => { 
-			cardAreas = [];
+			let cardAreas = [];
 			cardAreasRef.forEach((cardAreaRef) => {
-				let promises = [];
-				//promises.push(this.getCardAreaSettings(player, gameSessionId, cardAreaRef));
-				promises.push(this.getCardArea(player, gameSessionId, cardAreaRef));
+				let cardAreaSettingsRef = cardAreaRef.settings[player.id];
+				let cardAreaSettings = new CardAreaSettings(cardAreaSettingsRef, this._cardFoldingEnum);
+				cardAreas.push(new CardArea(cardAreaSettings, cardAreaRef));	
 							
-				return this._$q.all(promises).then((result) => { 
-					let cardAreaSettings = new CardAreaSettings(result[0], this._cardFoldingEnum); 
-					cardAreas.push(new CardArea(result[1], cardAreaSettings));
-
-					return cardAreas;
-				});
+				//let promises = [];
+				//promises.push(this.getCardAreaSettings(player, gameSessionId, cardAreaRef));
+				//promises.push(this.getCardArea(player, gameSessionId, cardAreaRef));
+							
+// 				return this._$q.all(promises).then((result) => { 
+// 					let cardAreaSettings = new CardAreaSettings(result[0], this._cardFoldingEnum); 
+// 					cardAreas.push(new CardArea(result[1], cardAreaSettings));
+// 
+// 					return cardAreas;
+// 				});
 			});
+			
+			return cardAreas;
 		});
 	}
 
 	getCardAreasRef(gameSessionId) {
-		return this._firebaseService.getRef("common/gameSessions/" + gameSessionId + "/cardAreas");
+		return this._firebaseService.getRef("gameSessions/" + gameSessionId + "/cardAreas");
 	}
 
 	getCardAreaSettings(player, gameSessionId, cardAreaRef) {
@@ -77,11 +80,13 @@ class FirebaseService {
 	}
 
 	getGameSessionsRef() {
-		return this.getRef("common/gameSessions"); 
+		return this.getRef("gameSessions"); 
 	}
 
 	getGameSession(gameSessionId) {
-		return this.getObjectRef("common/gameSessions/" + gameSessionId).then((ref) => { return new GameSession(ref); }); 
+		return this.getObjectRef("gameSessions/" + gameSessionId).then((ref) => { 
+			return new GameSession(ref); 
+			}); 
 	}
 
 	getPlayersRef() {

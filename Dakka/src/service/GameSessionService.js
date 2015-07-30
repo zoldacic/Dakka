@@ -16,71 +16,21 @@ class GameSessionService {
 		this._gameSessions.stale = true;
 
 		this._currentGameSession = null;
-		this._currentPlayerGameSession = null;
     }
 
 	get currentGameSession() {
 		return this._currentGameSession;
 	}
 
-	get currentPlayerGameSession() {
-		return this._currentPlayerGameSession;
-	}
-
 	continueGameSession(gameSession) {
 		this._currentGameSession = gameSession;
 
 		this._loginService.getLoggedInPlayer().
-			then((player) => { return this._firebaseService.getPlayerGameSession(player, gameSession) }).
-			then((playerGameSession) => { 	this._currentPlayerGameSession = playerGameSession; }).
 			then(() => { this._$state.go('dashboard.table.phaseSetup'); });	
 	}
 
 	createGameSession(game, players) {
 		let _this = this;
-		
-		let addTemplateCardAreasToCommon = (templateAreasRef) => {
-			_this._currentGameSession.ref.cardAreas = templateAreasRef; 
-			return _this._currentGameSession.ref.$save();
-		};
-
-		let addCardAreaSettingsForPlayers = (templateAreaSettingsRef) => {
-				
-		    // Clean out '$$'-variables
-			let templateAreaSettingsRefCopy = angular.fromJson(angular.toJson(templateAreaSettingsRef));
-
-		    let savePromises = [];
-            players.forEach((player) => {
-            	savePromises.push(_this._firebaseService.getPlayerGameSessionRef(player, _this._currentGameSession).
-					then((playerGameSessionRef) => { 
-						//_this._currentPlayerGameSession = playerGameSession;
-						
-						// 2. SPARA UNDER GAMESESSION/PLAYER ISTF PLAYER/GAMESESSION
-						
-						playerGameSessionRef.cardAreaSettings = templateAreaSettingsRefCopy; 
-						return playerGameSessionRef.$save();
-					}));
-            });
-
-            return this._$q.all(savePromises);
-        };	
-
-		// Create card area for the current game session and player from templates
-		let createCardAreasForPlayers = () => {
-			let promises = [];
-
-			promises.push(_this._firebaseService.getTemplateCardAreaSettingsRef(game));
-			promises.push(_this._firebaseService.getTemplateCardAreasRef(game));
-
-			return this._$q.all(promises).
-				then((result) => { 
-					let promises = [];
-					promises.push(addCardAreaSettingsForPlayers(result[0])); 
-					promises.push(addTemplateCardAreasToCommon(result[1]));
-
-					return _this._$q.all(promises);
-				});				
-		}
 
 		let addGameSessionToGameSessions = (gameSessionsRef, players) => {
 			let playerList = [];
@@ -88,37 +38,53 @@ class GameSessionService {
 
 			return gameSessionsRef.$add({ gameType: game.id, created: Date.now(), phase: _this._phaseEnum.SETUPI, players: playerList }).
 				then((id) => { return _this._firebaseService.getGameSession(id.key()); }).
-				then((gameSession) => { _this._currentGameSession = gameSession; });
+				then((gameSession) => { 
+					_this._currentGameSession = gameSession; 
+				});
 		};
 		
-		let addCardAreasToGameSession = (gameSession) => {	
-			return this.loadCardAreas(gameSession.id).then(cardAreas => { 
-				gameSession.cardAreas = cardAreas; 
-				return gameSession;
-			});		
-		}		
+		let addTemplateCardAreasToGameSession = (game) => {	
+			return (_this._firebaseService.getTemplateCardAreasRef(game).then(templateAreasRef => {
+				// Clean out '$$'-variables
+				let templateAreasRefCopy = angular.fromJson(angular.toJson(templateAreasRef));
+				_this._currentGameSession.ref.cardAreas = { common: templateAreasRefCopy }; 
+				return _this._currentGameSession.ref.$save(); 
+			}));		
+		};		
+		
+		let addTemplateCardAreaSettingsToGameSession = (game, players) => {	
+			return (_this._firebaseService.getTemplateCardAreaSettingsRef(game).then(templateAreaSettingsRef => {
+				_this._currentGameSession.ref.cardAreas.settings = {}; 				
+				players.forEach((player) => { 
+					// Clean out '$$'-variables
+					let templateAreaSettingsRefCopy = angular.fromJson(angular.toJson(templateAreaSettingsRef));
+					_this._currentGameSession.ref.cardAreas.settings[player.id] = templateAreaSettingsRefCopy;
+					
+				}); 
+				return _this._currentGameSession.ref.$save(); 
+			}));		
+		};		
+		
+		let addGameSessionToPlayerGameSessions = () => {
+			return _this._firebaseService.getPlayerGameSessionsRef(_this.loggedInPlayer).then((playerGameSessionsRef) => {
+				 return playerGameSessionsRef.$add({ gameSessionId: _this._currentGameSession.id });
+			});
+		};
 
 		let gameSessionsRef = null;
 
 		this._firebaseService.getGameSessionsRef().
 			then((ref) => { gameSessionsRef = ref; }).
 			then(() => { return _this._loginService.getLoggedInPlayer(); }).
-			then((loggedInPlayer) => { players.push(loggedInPlayer); }).
+			then((loggedInPlayer) => {
+				_this.loggedInPlayer = loggedInPlayer; 
+				players.push(loggedInPlayer); 
+			}).
 			then(() => { return addGameSessionToGameSessions(gameSessionsRef, players); }).
-			
-			// Add card areas
-			then(() => { return _this.addCardAreasToGameSession(this._currentGameSession); }).
-			
-			// Add card area player settings
-			
-			// 1. FÖRENKLA NEDAN
-			
-			
-		
-    		then(createCardAreasForPlayers).
-			
-			
-            
+			then(() => { return addTemplateCardAreasToGameSession(game); }).
+			then(() => { return addTemplateCardAreaSettingsToGameSession(game, players); }).
+			then(() => { return addGameSessionToPlayerGameSessions(); }).
+										            
     		then(() => { this._$state.go('dashboard.table.phaseSetup'); });
 	}
 
@@ -126,13 +92,11 @@ class GameSessionService {
 		let _this = this;
 
 		let addGameSessions = (loggedInPlayer) => {
-			return _this._firebaseService.getPlayerGameSessionsRef(loggedInPlayer).
-				then((playerGameSessionsRef) => {
+			return _this._firebaseService.getPlayerGameSessionsRef(loggedInPlayer).then((playerGameSessionsRef) => {
 					let sessionPromises = [];
 					
 					playerGameSessionsRef.forEach((playerGameSessionRef) => { 
-						sessionPromises.push(_this._firebaseService.getGameSession(playerGameSessionRef.$id).
-							then((gameSession) => { return _this.addCardAreasToGameSession(gameSession); }).
+						sessionPromises.push(_this._firebaseService.getGameSession(playerGameSessionRef.gameSessionId).
 							then((gameSession) => { _this._gameSessions.push(gameSession); })		
 					)});
 
@@ -140,16 +104,9 @@ class GameSessionService {
 				});
 		};
 
-		return _this._loginService.getLoggedInPlayer().then((player) => { return addGameSessions(player).then(() => { return _this._gameSessions; }); }); 							
+		return _this._loginService.getLoggedInPlayer().then((player) => { 
+			return addGameSessions(player).then(() => { return _this._gameSessions; }); }); 							
 	}
-
-
-// 
-// 	loadCardAreas(gameSessionId) {
-// 		return this._loginService.getLoggedInPlayer().then((player) => {
-// 			return this._firebaseService.getCardAreas(player, gameSessionId);
-// 		});
-// 	}
 }
 
 export {GameSessionService}
