@@ -3,11 +3,12 @@
 	
 	<div ui-view></div>
 
-	<div ng-hide="table.isFactionSelectionPhase">
+	<div ng-hide="table.isFactionSelectionPhase()">
 		<div ng-repeat="row in table.getTimes(1) track by $index" class="row">
 			<div ng-model="table.positionedCardAreas" data-jqyoui-options="table.verifyCardAreaDrop" ng-repeat="positionArea in table.getTimes(1) track by $index" class="cardArea cardAreaFrame col-xs-2" style="border-color: red; min-width: 100%; max-width: 100%; min-height: 600px; max-height: 600px" data-drop="true" jqyoui-droppable></div>
 		</div>
 	
+	BEFORE CARD AREAS
 		<div ng-attr-id="{{cardArea.id}}" ng-repeat="cardArea in table.cardAreas" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{animate:true}" class="cardArea" ng-style="{left: cardArea.left, top: cardArea.top,'max-width': cardArea.widthInPixels, 'max-height': cardArea.heightInPixels}">
 			<label>
 				{{cardArea.name}}

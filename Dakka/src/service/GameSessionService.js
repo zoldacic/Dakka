@@ -4,12 +4,11 @@ import {PlayerGameSession} from '../model/virtual/PlayerGameSession'
 import {Player} from '../model/virtual/Player'
 
 class GameSessionService { 
-    constructor($q, $state, firebaseService, loginService, setupService, phaseEnum) {
+    constructor($q, $state, firebaseService, loginService, phaseEnum) {
         this._$q = $q;
         this._$state = $state;
 		this._firebaseService = firebaseService;
 		this._loginService = loginService;
-		this._setupService = setupService;
 		this._phaseEnum = phaseEnum;
 
 		this._gameSessions = [];

@@ -1,0 +1,16 @@
+{
+	"public":
+	{
+		"generatedId1":
+		{
+			"id":8253,"warlordId":365,"name":"Ambush","username":"fredrik","configCsQuantity":3, "members":
+			[{"cardId":367,"quantity":1},{"cardId":366,"quantity":4},{"cardId":369,"quantity":2},{"cardId":368,"quantity":1},{"cardId":165,"quantity":2},{"cardId":394,"quantity":2},{"cardId":414,"quantity":3},{"cardId":268,"quantity":1},{"cardId":270,"quantity":2},{"cardId":279,"quantity":2},{"cardId":162,"quantity":2},{"cardId":163,"quantity":1},{"cardId":485,"quantity":3},{"cardId":289,"quantity":3},{"cardId":292,"quantity":2},{"cardId":469,"quantity":3},{"cardId":395,"quantity":1},{"cardId":307,"quantity":3},{"cardId":415,"quantity":3},{"cardId":486,"quantity":3},{"cardId":393,"quantity":2},{"cardId":330,"quantity":3},{"cardId":164,"quantity":3},{"cardId":345,"quantity":2},{"cardId":468,"quantity":3},{"cardId":357,"quantity":2},{"cardId":359,"quantity":2},{"cardId":505,"quantity":1},{"cardId":433,"quantity":2},{"cardId":507,"quantity":1},{"cardId":168,"quantity":2}],
+			"type":"base","createDateMillis":1436192526000,"modifyDateMillis":1436570426000
+		},
+		"generatedId2":
+		{
+				"id":8231,"warlordId":442,"name":"Mobile deck","username":"fredrik","configCsQuantity":3,"members":[{"cardId":443,"quantity":4},{"cardId":446,"quantity":1},{"cardId":444,"quantity":2},{"cardId":445,"quantity":1},{"cardId":255,"quantity":1},{"cardId":263,"quantity":1},{"cardId":411,"quantity":3},{"cardId":273,"quantity":1},{"cardId":274,"quantity":1},{"cardId":412,"quantity":1},{"cardId":280,"quantity":1},{"cardId":281,"quantity":2},{"cardId":432,"quantity":3},{"cardId":433,"quantity":2},{"cardId":293,"quantity":1},{"cardId":466,"quantity":3},{"cardId":311,"quantity":1},{"cardId":157,"quantity":1},{"cardId":483,"quantity":3},{"cardId":155,"quantity":1},{"cardId":484,"quantity":2},{"cardId":341,"quantity":1},{"cardId":392,"quantity":3},{"cardId":347,"quantity":1},{"cardId":349,"quantity":1},{"cardId":465,"quantity":3},{"cardId":361,"quantity":1},{"cardId":362,"quantity":1}],"type":"base","createDateMillis":1436140410000,"modifyDateMillis":1436140410000
+		}
+	}
+}
+

@@ -8,6 +8,9 @@ conquest.static.format = {
 	},
 	pl: {
 		timestamp: "dddd, Do MMMM YYYY, HH:mm:ss"
+	},
+	de: {
+		timestamp: "dddd, Do MMMM YYYY, HH:mm:ss"
 	}
 };
 
@@ -174,41 +177,13 @@ conquest.model = conquest.model || {};
 		parse: function(response) {
 			response.card = _.clone(conquest.dict.findCard(parseInt(response.cardId)));
 			response.fixedQuantity = response.card.type === 'warlord' || _.isNumber(response.card.warlordId);
+			response.fixedMaxQuantity = response.card.type === 'warlord' || response.card.type === 'synapse' || _.isNumber(response.card.warlordId);
 			return response;
 		}
 	});
 
 	_model.DeckMembers = Backbone.Collection.extend({
 		model: _model.DeckMember,
-		comparator: function(one, two) {
-			var result;
-			if (one.get('card').type === 'warlord') {
-				result = -1;
-			} else if (two.get('card').type === 'warlord') {
-				result = 1;
-			} else {
-				result = 0;
-			}
-
-			if (result === 0) {
-				if (!_.isUndefined(one.get('card').warlordId) && _.isUndefined(two.get('card').warlordId)) {
-					result = -1;
-				} else if (!_.isUndefined(two.get('card').warlordId) && _.isUndefined(one.get('card').warlordId)) {
-					result = 1;
-				} else {
-					result = 0;
-				};
-			}
-			
-			if (result === 0) {
-				result = one.get('card').factionDisplay.localeCompare(two.get('card').factionDisplay);
-			}
-
-			if (result === 0) {
-				result = one.get('card').name.localeCompare(two.get('card').name);
-			}
-			return result;
-		},
 		computeTotalQuantity: function() {
 			var total = 0;
 			this.each(function(member) {
@@ -262,7 +237,7 @@ conquest.model = conquest.model || {};
 		},
 		adjustQuantities: function(csQuantity) {
 			this.each(function(member) {
-				if (member.get('fixedQuantity') === false) {
+				if (member.get('fixedMaxQuantity') === false) {
 					var availableQuantity = Math.min(3, member.get('card').quantity * csQuantity);
 					member.set({
 						availableQuantity: availableQuantity
@@ -341,10 +316,12 @@ conquest.model = conquest.model || {};
 			attributes.type = attributes.type || 'base';
 		},
 		parse: function(response) {			
+			response.warlord = _.clone(conquest.dict.findCard(parseInt(response.warlordId)));
 			response.createDateMillis = moment.tz(response.createDate, conquest.static.timezone).valueOf();
 			response.modifyDateMillis = moment.tz(response.modifyDate, conquest.static.timezone).valueOf();
 			response.members = new _model.DeckMembers(response.members, {
-				parse: true
+				parse: true,
+				comparator: conquest.util.buildMembersDefaultComparator(response.warlord.faction)
 			});
 			response.links = new _model.DeckLinks(response.links, {
 				parse: true,
@@ -367,7 +344,7 @@ conquest.model = conquest.model || {};
 			response.members.each(function(member) {
 				var cardQuantity = member.get('card').quantity;
 				var availableQuantity;
-				if (member.get('fixedQuantity') === true) {
+				if (member.get('fixedMaxQuantity') === true) {
 					availableQuantity = cardQuantity;
 				} else {
 					if (_.isUndefined(response.configCsQuantity)) {
@@ -462,6 +439,7 @@ conquest.model = conquest.model || {};
 				if (member.quantity && member.quantity > 0) {
 					delete member.availableQuantity;
 					delete member.fixedQuantity;
+					delete member.fixedMaxQuantity;
 					delete member.card;
 					json.members.push(member);
 				}
@@ -536,6 +514,7 @@ conquest.model = conquest.model || {};
 					_.each(sourceJson.members, function(member) {
 						delete member.card;
 						delete member.fixedQuantity;
+						delete member.fixedMaxQuantity;
 						delete member.availableQuantity;
 					});
 				}
@@ -577,6 +556,7 @@ conquest.filter = conquest.filter || {};
 	_filter.FD_TYPE_SET = 'set';
 	_filter.FD_TYPE_SIMPLE = 'simple';
 	_filter.FD_TYPE_RANGE = 'range';
+	_filter.FD_TYPE_RANGE_STAT = 'range-stat';
 
 	_filter.fds = [{
 		key: 'setTechName',
@@ -625,23 +605,23 @@ conquest.filter = conquest.filter || {};
 	}, {
 		key: 'cost',
 		queryStringKey: 'cost',
-		type: _filter.FD_TYPE_RANGE
+		type: _filter.FD_TYPE_RANGE_STAT
 	}, {
 		key: 'shield',
 		queryStringKey: 'shield',
-		type: _filter.FD_TYPE_RANGE
+		type: _filter.FD_TYPE_RANGE_STAT
 	}, {
 		key: 'command',
 		queryStringKey: 'command',
-		type: _filter.FD_TYPE_RANGE
+		type: _filter.FD_TYPE_RANGE_STAT
 	}, {
 		key: 'attack',
 		queryStringKey: 'attack',
-		type: _filter.FD_TYPE_RANGE
+		type: _filter.FD_TYPE_RANGE_STAT
 	}, {
 		key: 'hitPoints',
 		queryStringKey: 'hp',
-		type: _filter.FD_TYPE_RANGE
+		type: _filter.FD_TYPE_RANGE_STAT
 	}, {
 		key: 'warlordTechName',
 		queryStringKey: 'warlord',
@@ -688,10 +668,14 @@ conquest.filter = conquest.filter || {};
 					parts.push(fd.queryStringKey + '=' + value);
 				} else if (fd.type == _filter.FD_TYPE_RANGE && _.isArray(value) && !_.isEmpty(value)) {
 					var hasNonEmptyValue = _.some(value, function(v) {
-						return !_.isEmpty(v);
+						return !_.isUndefined(v) && v !== '';
 					});
 					if (hasNonEmptyValue) {
 						parts.push(fd.queryStringKey + '=' + value.join());
+					}
+				} else if (fd.type == _filter.FD_TYPE_RANGE_STAT && _.isArray(value) && !_.isEmpty(value)) {
+					if (value[2] === false) {
+						parts.push(fd.queryStringKey + '=' + value.join());	
 					}
 				}
 			}
@@ -732,6 +716,9 @@ conquest.filter = conquest.filter || {};
 						filter[fd.key] = value;
 					} else if (fd.type === _filter.FD_TYPE_RANGE) {
 						filter[fd.key] = value.split(',');
+					} else if (fd.type === _filter.FD_TYPE_RANGE_STAT) {
+						var values = value.split(',')
+						filter[fd.key] = [ parseInt(values[0]), parseInt(values[1]), values[2] == 'true' ];
 					}
 				}
 			});
@@ -892,6 +879,138 @@ conquest.util = conquest.util || {};
 		return _.shuffle(arr);
 	};
 
+	_util.buildMembersComparator = function(keys, faction) {
+		return _util.buildCardsComparator(keys, {
+			resolver: function(member) {
+				return member.get('card');
+			}
+		});
+	};
+
+	_util.buildMembersDefaultComparator = function(faction) {
+		return function(one, two) {
+			var result = 0;
+			var cardOne = one.get('card');
+			var cardTwo = two.get('card');
+
+			$.each(['warlord', 'synapse'], function(index, type) {
+				if (cardOne.type == type && cardTwo.type != type) {
+					result = -1;
+					return false;
+				} else if (cardTwo.type == type && cardOne.type != type) {
+					result = 1;
+					return false;
+				} else {
+					result = 0;
+				}
+			});
+
+			if (cardOne.type == 'warlord') {
+				result = -1;
+			} else if (cardTwo.type == 'warlord') {
+				result = 1;
+			} else {
+				result = 0;
+			}
+
+			if (result == 0) {
+			if (cardOne.type == 'synapse') {
+				result = -1;
+			} else if (cardTwo.type == 'synapse') {
+				result = 1;
+			} else {
+				result = 0;
+			}
+		}
+
+			if (result == 0) {
+				if (_.isNumber(cardOne.warlordId) && _.isUndefined(cardTwo.warlordId)) {
+					result = -1;
+				} else if (_.isNumber(cardTwo.warlordId) && _.isUndefined(cardOne.warlordId)) {
+					result = 1;
+				} else {
+					result = 0;
+				};
+			}
+			
+			if (result == 0) {
+				if (cardOne.faction == faction && cardTwo.faction != faction) {
+					result = -1;
+				} else if (cardTwo.faction == faction && cardOne.faction != faction) {
+					result = 1;
+				} else {
+					result = cardOne.factionDisplay.localeCompare(cardTwo.factionDisplay);
+				}
+			}
+
+			if (result === 0) {
+				result = cardOne.name.localeCompare(cardTwo.name);
+			}
+			return result;
+		};
+	};
+
+	_util.buildCardsComparator = function(keys, options) {
+		var options = options || {};
+
+		var validKeys = [];
+		_.each(keys, function(key) {
+			if (key && key !== 'none' && key !== 'default') {
+				validKeys.push(key);
+			}
+		});
+		validKeys.push('setNumber');
+		validKeys.push('number');
+
+		var stringKeys = ['name', 'type', 'typeDisplay', 'faction', 'factionDisplay', 'setName'];
+		var numberKeys = ['memberQuantity', 'quantity', 'cost', 'shield', 'command', 'attack', 'hitPoints', 'setNumber', 'number'];
+
+		return function(one, two) {				
+			var result = 0;
+			$.each(validKeys, function(index, key) {
+				var property;
+				var descending;
+				if (_.isObject(key)) {
+					property = key.property;
+					descending = key.descending;
+				} else {
+					property = key;
+					descending = false;
+				}
+				var oneValue;
+				var twoValue;
+				if (property == 'memberQuantity') {
+					oneValue = one.get('quantity');
+					twoValue = two.get('quantity');
+				} else {
+					oneValue = (options.resolver ? options.resolver(one) : one)[property];
+					twoValue = (options.resolver ? options.resolver(two) : two)[property];
+				}
+
+				if (_.isUndefined(oneValue) && _.isUndefined(twoValue)) {
+					result = 0;
+				} else if (_.isUndefined(oneValue)) {
+					result = -1;
+				} else if (_.isUndefined(twoValue)) {
+					result = 1;
+				} else if (stringKeys.indexOf(property) > -1) {
+					result = oneValue.localeCompare(twoValue);
+				} else if (numberKeys.indexOf(property) > -1) {					
+					result = (oneValue == twoValue ? 0 : (oneValue < twoValue ? -1 : 1));
+				}
+
+				if (result != 0) {
+					if (descending === true) {
+						result *= -1;
+					}
+					return false;
+				}
+			});
+
+			return result;
+		};
+	};
+
 	_util.toCardUrl = function(input) {
 		return '/' + conquest.static.language + '/card/' + _util.toCardRelativeUrl(input);
 	};
@@ -1040,24 +1159,24 @@ conquest.util = conquest.util || {};
 	c.getValidDeckFactions = function(factionTechName) {
 		var validDeckFactions = [];
 		var factions = c.dict.factions;
-		var ringFactions = _.filter(factions, function(faction) {
-			return faction.techName != 'neutral' && faction.techName != 'necrons' && faction.techName != 'tyranids';
+		var circleFactions = _.filter(factions, function(faction) {
+			return faction.techName != 'neutral' && faction.techName != 'necron' && faction.techName != 'tyranid';
 		});
 		var faction = _.findWhere(factions, {
 			techName: factionTechName
 		});
 
-		if (factionTechName == 'neutral') {
+		if (faction.techName == 'neutral') {
 			// no op
-		} else if (factionTechName == 'necrons') {
+		} else if (faction.techName == 'necrons') {
 			// no op
-		} else if (factionTechName == 'tyranids') {
-			// no op
-		} else {
-			var index = ringFactions.indexOf(faction);
+		} else if (faction.techName == 'tyranid') {
 			validDeckFactions.push(faction);
-			validDeckFactions.push(ringFactions[(index - 1 + ringFactions.length) % ringFactions.length]);
-			validDeckFactions.push(ringFactions[(index + 1) % ringFactions.length]);
+		} else {
+			var index = circleFactions.indexOf(faction);
+			validDeckFactions.push(faction);
+			validDeckFactions.push(circleFactions[(index - 1 + circleFactions.length) % circleFactions.length]);
+			validDeckFactions.push(circleFactions[(index + 1) % circleFactions.length]);
 			validDeckFactions.push(_.findWhere(factions, {
 				techName: 'neutral'
 			}));
@@ -1123,6 +1242,60 @@ conquest.util = conquest.util || {};
 // 
 conquest.card = conquest.card || {};
 (function(_card) {
+
+	_card.CardsFilter = Backbone.Model.extend({
+		isNotEmpty: function() {
+			return !_.isEmpty(this.toJSON());
+		},
+		filter: function(cards) {
+			var filter = this;
+
+			var db = TAFFY(cards);
+			var query = {};
+			var query2;
+
+			_.each(conquest.filter.fds, function(fd) {
+				var value = filter.get(fd.key);
+				if (fd.type === conquest.filter.FD_TYPE_SET) {					
+					if (value && value.length > 0) {
+						query[fd.key] = value;
+					}
+				} else if (fd.type === conquest.filter.FD_TYPE_RANGE_STAT) {
+					if (value && (value.length == 2 || value.length === 3 && value[2] !== true)) {
+						query[fd.key] = {
+							gte: value[0],
+							lte: value[1]
+						};
+					}
+				} else if (fd.type === conquest.filter.FD_TYPE_SIMPLE && fd.key != 'text') {
+					if (value) {
+						var obj = {};
+						obj[fd.oper] = value;
+						query[fd.key] = obj;
+					}
+				}
+			});
+
+			var text = this.get('text');
+			if (text && !(query.techName || query.keyword || query.trait)) {
+				query2 = [];
+				_.each(['name', 'keyword', 'trait'], function(key) {
+					var obj = {};
+					obj[key] = { 
+						likenocase: text
+					};
+					query2.push(obj);
+				});				
+			}
+
+			if (query2) {
+				return db(query, query2).get();
+			} else {
+				return db(query).get();
+			}
+		}
+	});
+
 	//
 	// card set filter popover
 	//
@@ -1141,7 +1314,7 @@ conquest.card = conquest.card || {};
 				html: true,
 				trigger: 'click focus',
 				placement: 'bottom',
-				animation: false,
+				animation: true,
 				content: filterContent
 			});
 
@@ -1162,6 +1335,10 @@ conquest.card = conquest.card || {};
 						$this.siblings().filter('ul').find('input[type="checkbox"]').prop('checked', $this.prop('checked'));
 					});
 				});
+
+				//
+				// filter apply
+				//
 				$content.find('.filter-apply').click(function() {
 					view.$trigger.popover('hide');
 					var sets = [];
@@ -1177,6 +1354,98 @@ conquest.card = conquest.card || {};
 						cycleTechName: cycles
 					});
 				});
+				//
+				// filter cancel
+				//
+				$content.find('.filter-cancel').click(function() {
+					view.$trigger.popover('hide');
+				});
+			});
+		}
+	});
+
+	//
+	// card stats filter popover
+	//
+	_card.CardStatFilterPopoverView = Backbone.View.extend({
+		initialize: function(options) {
+			this.filter = options.filter;
+			this.$trigger = options.$trigger;
+		},
+		render: function() {
+			var view = this;
+
+			var filterContent = Handlebars.templates['card-stat-filter-popover-view.hbs']({});
+			view.$trigger.popover({
+				html: true,
+				trigger: 'click focus',
+				placement: 'bottom',
+				animation: true,
+				content: filterContent
+			});
+
+			view.$trigger.on('shown.bs.popover', function() {
+				var $content = view.$trigger.parent().find('.filter-content');
+
+				$content.find('.slider').slider({}).each(function() {
+					var $this = $(this);
+					var $labelMin = $this.siblings().find('.label-min');
+					var $labelMax = $this.siblings().find('.label-max');
+
+					var filterKey = $this.data('filter-key');
+					var filterValues = view.filter.get(filterKey);
+					var minInit = $this.data('slider-min');
+					var maxInit = $this.data('slider-max');
+					var disabled = true;
+					if (filterValues) {
+						minInit = filterValues[0] || minInit;
+						maxInit = filterValues[1] || maxInit;
+						disabled = filterValues[2] === true;
+					}
+
+					$labelMin.text(minInit);
+					$labelMax.text(maxInit);
+
+					if (disabled) {
+						$this.parent('td').addClass('disabled');
+					} else {
+						$this.parent('td').removeClass('disabled');
+					}
+					$this.parent('td').prev().find('input').prop('checked', !disabled);
+
+					$this.slider({
+						range: true,
+						min: $this.data('slider-min'),
+						max: $this.data('slider-max'),
+						values: [minInit, maxInit],
+						slide: function(event, ui) {
+							$labelMin.text(ui.values[0]);
+							$labelMax.text(ui.values[1]);
+						}
+					});
+				});
+
+				$('.stats-filter-group td:nth-child(1) input').click(function() {
+					$(this).parent('td').next().toggleClass('disabled');
+				});
+
+				//
+				// filter apply
+				//
+				$content.find('.filter-apply').click(function() {
+					view.$trigger.popover('hide');
+					var filter = {};
+					$content.find('.slider').each(function() {
+						var $this = $(this);
+						var values = $this.slider('values');
+						values.push($this.parent().hasClass('disabled'));
+						filter[$this.data('filter-key')] = values;	
+					});
+					view.filter.set(filter);
+				});
+				//
+				// filter cancel
+				//
 				$content.find('.filter-cancel').click(function() {
 					view.$trigger.popover('hide');
 				});

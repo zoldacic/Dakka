@@ -9,7 +9,7 @@ table.faction-image-container-md>tbody>tr>td {vertical-align: middle; /* line-he
 
 #wrapper {
 	min-height: 100%;
-	padding-bottom: 7em;
+	padding-bottom: 110px;
 }
 
 footer.footer {
@@ -17,6 +17,7 @@ footer.footer {
 	background-color: #f8f8f8;
 	border-top: 1px solid #e7e7e7;
 	font-size: 0.8em;
+	margin-top: -110px;
 }
 footer.footer > .container > p:first-child {
 	margin-top: 10px;
@@ -94,6 +95,7 @@ footer.footer > .container > p:first-child {
 .icon-chaos { background-image: url('/image/faction/chaos-b-md.png'); }
 .icon-ork {	background-image: url('/image/faction/ork-b-md.png'); }
 .icon-tau {	background-image: url('/image/faction/tau-b-md.png'); }
+.icon-tyranid {	background-image: url('/image/faction/tyranid-b-md.png'); }
 
 .card-md {
 	width: 255px;
@@ -325,6 +327,7 @@ label.required:after {
 .deck-container.tau:before { background-color: #90E6EE; }
 .deck-container.eldar:before { background-color: #EBE19C; }
 .deck-container.dark-eldar:before { background-color: #B48EAD; }
+.deck-container.tyranid:before { background-color: #A32618; }
 
 .deck-container .deck-info {
 	margin-right: 30px;
@@ -440,7 +443,7 @@ label.required:after {
  */
 
 .side-filter-group { margin-bottom: 20px; }
-.stats-filter-group { width: 100%; }
+.stats-filter-group { width: 200px; }
 .stats-filter-group td:nth-child(1) { width: 30px; }
 .stats-filter-group td:nth-child(2) { padding: 0em 0.6em 0.6em 0.6em; }
 .stats-filter-group td:nth-child(2).disabled { opacity: 0.65; cursor: not-allowed; pointer-events: none; }
@@ -492,9 +495,9 @@ label.required:after {
 	color: #888;
 }
 
-.block > .block-content {
+/* .block > .block-content {
 	padding: 0px 10px;
-}
+} */
 
 .draw-container > a > img {
 	margin: 0px 5px 5px 0px;
@@ -583,17 +586,20 @@ table.table-with-btn > tbody > tr > td {
 	margin-bottom: 0px;
 }
 
-.pub-deck .deck-header {
+.pub-deck .deck-header,
+.user-deck .deck-header {
 	font-size: 30px;
 	margin-bottom: 10px;
 	border-bottom: 1px solid #ddd;
 }
 
-.pub-deck .deck-header .secondary-text {
+.pub-deck .deck-header .secondary-text,
+.user-deck .deck-header .secondary-text {
 	font-size: 0.5em;
 }
 
-.pub-deck .deck-header .secondary {
+.pub-deck .deck-header .secondary,
+.user-deck .deck-header .secondary {
 	font-size: 0.5em;
 	color: #bbb;
 }
@@ -611,9 +617,6 @@ table.table-with-btn > tbody > tr > td {
 .members-list-item > div > div > div { display: table; }
 .members-list-header > div > div > div > div,
 .members-list-item > div > div > div > div { display: table-cell; }
-/* .members-list-item .quantity-col { width: 7em; display: table; } */
-/* .members-list-header .name-col,
-.members-list-item .name-col { width: 100%; } */
 .members-list-header .type-col,
 .members-list-item .type-col { width: 6em; }
 .members-list-header .faction-col,
@@ -621,19 +624,17 @@ table.table-with-btn > tbody > tr > td {
 .members-list-header .stat-col,
 .members-list-item .stat-col { width: 2em; }
 
-/* .deck-list-filter-container > div, 
-.deck-list-filter-container > label,
-.members-list-filter-container > div,
-.members-list-filter-container > label,
-.actions-container > div,
-.actions-container > a {
-	margin-bottom: 5px;
-} */
-
 .deck-list-filter-container .filter-group, 
 .card-search-filter-container .filter-group,
 .members-list-filter-container .filter-group,
 .actions-container > div,
 .actions-container > a {
 	margin-bottom: 5px;
+}
+
+.members-list-filter-container .tt-input { margin-top: 0px; }
+.members-list-filter-container .sort-control { min-width: 180px; }
+
+.popover-buttons {
+	margin: 5px 0px;
 }

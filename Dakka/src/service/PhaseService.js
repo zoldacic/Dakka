@@ -7,6 +7,10 @@
 	get currentPhase() {
 		return this._currentPhase;
 	}
+	
+	nextPhase() {
+		if (this._currentPhase == this._phaseEnum.SETUPI) this._currentPhase = this._phaseEnum.SETUPII;  
+	}
 
 	addPhaseCondition() {}
 

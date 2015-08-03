@@ -17,6 +17,14 @@ import {GameTypeEnum} from './enum/GameTypeEnum';
 import {PhaseEnum} from './enum/PhaseEnum';
 import {FactionEnum} from './enum/FactionEnum';
 
+window.onerror = function(msg, url, line, col, error) {
+	var extra = !col ? '' : '\ncolumn: ' + col;
+	extra += !error ? '' : '\nerror' + error;
+	
+	alert("Error: " + msg + "\nurl: " + url + "\nline: " + line + extra);
+}
+
+
 angular
 	.module('app', ['firebase', 'ngDragDrop', 'ngTouch', 'ngAnimate', 'ui.router',  'ui.bootstrap', 'angular-loading-bar',  'bootstrapLightbox'])
 	.service('firebaseService', FirebaseService) 

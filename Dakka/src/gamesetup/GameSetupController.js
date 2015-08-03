@@ -1,5 +1,5 @@
 ﻿
-import {Game} from '../model/virtual/Game'
+import {Game} from '../model/virtual/Game';
 
 class GameSetupController {
 	constructor($scope, personaService, loginService, gameSessionService, gameTypeEnum) { 

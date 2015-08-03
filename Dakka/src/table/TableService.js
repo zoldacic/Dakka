@@ -9,13 +9,17 @@ class TableService {
 	get cardAreas() {
 		return this._cardAreas;
 	}
+	
+	// set cardAreas(value) {
+	// 	this._cardAreas = value;
+	// }
 
 	get currentPhase() {
 		return this._phaseService.currentPhase;
 	}
 
 	clean() {
-	    this._cardAreas = [];
+	    //this._cardAreas = [];
 	}
 
 	isFactionSelectionPhase() {

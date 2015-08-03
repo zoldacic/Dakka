@@ -15,7 +15,9 @@ class Card {
 	}
 
 	get image() {
-		return this._ref._imageBase;
+		let slashIndex = this._ref.imageBase.lastIndexOf("/");
+		let filename = this._ref.imageBase.substring(slashIndex + 1);
+		return "img/cards/wh40kc/" + filename + ".jpg";
 	}
 
 	set draggable(value) {

@@ -1,29 +1,77 @@
-﻿class PhaseSetupController {
-	constructor(phaseService, phaseEnum, factionEnum, gameSessionService) {
+﻿import {Card} from '../model/physical/card';
+
+class PhaseSetupController {
+	constructor($scope, $state, phaseService, phaseEnum, factionEnum, gameSessionService, setupService, firebaseService, tableService) {
+		this._$scope = $scope;
+		this._$state = $state;
 		this._phaseEnum = phaseEnum;
 		this._factionEnum = factionEnum;
 		this._phaseService = phaseService;
-		this._sessionService = gameSessionService;
+		this._setupService = setupService;
+		this._gameSessionService = gameSessionService;
+		this._firebaseService = firebaseService;
+		this._tableService = tableService;
 	}
 
 	get phase() {
 		return this._phaseEnum._SETUPI;
 	}
 
-	get factions() {
-		return this._factionEnum.all;
+	get decks() {
+		let _this = this;
+		if (!_this._decks) {
+			_this._decks = {};
+			_this._firebaseService.getDecksRef().then((decksRef) => { 
+				_this._decks = decksRef; 
+			});
+		}
+		
+		return _this._decks;
 	}
 
-	get faction() {
-		return this._faction;
+	get deck() {
+		return this._deck;
 	}
 
-	set faction(value) {
-		this._faction = value;
+	set deck(value) {
+		this._deck = value;
 	}
 
-	setFaction() {
-		this._sessionService.currentPlayerGameSession.faction = faction;
+	_addCards() {
+		let _this = this;
+		
+		return _this._firebaseService.getCardsRef().then((cardsRef) => {
+				let cardArea = _this._tableService.cardAreas.filter((element) => { return element.id == "MyCardPile"; })[0];
+				_this._gameSessionService.currentGameSession.deck.members.forEach((member) => {
+					let filteredCards = cardsRef.filter((element) => { return element.id == member.cardId; });
+					if (filteredCards.length > 0) {
+						filteredCards[0].$id = filteredCards[0].id;
+						for (let i=0;i<member.quantity;i++) {
+							cardArea.cards.push(new Card(filteredCards[0]));
+						}
+					} else {
+						alert('Card with id: ' + member.cardId	 + " is not in card pool");
+					}
+					
+				});	
+			})
+		
+	}
+	
+	playerDoneWithPhase() {
+		let _this = this;
+		_this._phaseService.nextPhase();
+		
+		_this._setupService.init(_this._gameSessionService.currentGameSession)
+			.then(() => { 
+				_this._gameSessionService.currentGameSession.deck = _this._deck; 
+				})
+			.then(() => { return _this._addCards(); })
+			.then(() => { _this._$state.go('dashboard.table') });
+		
+		// if (!this._$scope.$$phase) {
+		// 	this._$scope.$apply();
+		// }			
 	}
 }
 

@@ -4,9 +4,9 @@
 	<div class="panel-body">
 		<form role="form">
 			<div class="form-group">
-				<select class="form-control" ng-options="faction.name for faction in phase.factions" ng-model="phase.playerFaction"></select>
+				<select class="form-control" ng-options="deck.name for deck in phase.decks" ng-model="phase.deck"></select>
 			</div>
 		</form>
-		<button class="btn btn-default" ng-click="phase.playerDoneWithPhase">I'm done!</button>
+		<button class="btn btn-default" ng-click="phase.playerDoneWithPhase()">I'm done!</button>
 	</div>
 </div>

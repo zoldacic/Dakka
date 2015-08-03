@@ -64,7 +64,7 @@ class TableController {
 	}
 
 	isFactionSelectionPhase() {
-		return this._tableService.isFactionSelectionPhase;
+		return this._tableService.isFactionSelectionPhase();
 	}
 
 	startDraggingCard(event, ui, {card: card}) {

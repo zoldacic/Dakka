@@ -7,7 +7,7 @@ import {Planet} from '../model/physical/Planet'
 import {Card} from '../model/physical/Card'
 
 class SetupService {
-    constructor($q, $filter, firebaseService, tableService, loginService, cardFoldingEnum, gameTypeEnum) { 
+    constructor($q, $filter, firebaseService, tableService, loginService, cardFoldingEnum, gameTypeEnum, gameSessionService) { 
     	this._$q = $q;
     	this._$filter = $filter;
 		this._firebaseService = firebaseService;
@@ -15,6 +15,7 @@ class SetupService {
 		this._cardFoldingEnum = cardFoldingEnum;
 		this._gameTypeEnum = gameTypeEnum;
         this._loginService = loginService;
+		this._gameSessionService = gameSessionService;
     }
 
 	initTest() {
@@ -47,7 +48,7 @@ class SetupService {
 		//}));
     }
 
-	init(gameSessionRef) {
+	init(currentGameSession) {
 		let _this = this;
 		_this._tableService.clean();
 
@@ -67,24 +68,30 @@ class SetupService {
 		//	cardAreas.forEach((cardArea) => addCardAreaStyleToCardArea(cardArea, cardAreaStyles));		
 		//}
 
-
-
-            //let exec = (gameRef) => {
-            //	this._tableService.clean();
-
-            //	return this._loginService.getLoggedInPlayer().
-			//		then((loggedInPlayer) => { return this._firebaseService.getRef("players/" + loggedInPlayer.id + "/gameSessions/" + gameRef + '/cardAreas');	}).
-			//		then((playerCardAreas) => {
-			//			return playerCardAreas.$loaded().then(() => {
-			//				playerCardAreas.forEach((area) => {
-			//					let cardArea = new CardArea(playerCardAreas, area, this._cardFoldingEnum);
-			//					this._tableService.cardAreas.push(cardArea);
-			//				}.bind(this));
-			//			});		
-			//		});
-			//}.bind(this);
-
-           // exec(gameRef);
+		return _this._loginService.getLoggedInPlayer().
+			then((player) => { return _this._firebaseService.getCardAreas(player, currentGameSession.id); }).
+			then((cardAreas) => { 
+				cardAreas.forEach((cardArea) => { 					
+					_this._tableService.cardAreas.push(cardArea); 
+				});				
+			});			
+// 
+//         let exec = (gameRef) => {
+//         	this._tableService.clean();
+// 
+//         	return this._loginService.getLoggedInPlayer().
+// 				then((loggedInPlayer) => { return this._firebaseService.getRef("players/" + loggedInPlayer.id + "/gameSessions/" + gameRef + '/cardAreas');	}).
+// 				then((playerCardAreas) => {
+// 					return playerCardAreas.$loaded().then(() => {
+// 						playerCardAreas.forEach((area) => {
+// 							let cardArea = new CardArea(playerCardAreas, area, this._cardFoldingEnum);
+// 							this._tableService.cardAreas.push(cardArea);
+// 						}.bind(this));
+// 					});		
+// 				});
+// 		}.bind(this);
+// 
+//        exec(gameRef);
     }
 }
 

@@ -4,11 +4,6 @@
 		<h3>You need to login before creating a new game, duuh</h3>
 	</div>
 	<div ng-show="vm.isLoggedIn()">
-		<h2>Current games</h2>
-		<div ng-repeat="gameSession in vm.gameSessions" class="currentGameSession">
-			<button class="btn btn-primary continueButton" ng-click="vm.continueGameSession(gameSession)">{{gameSession.gameType}} - Started: {{gameSession.created|date:'yyyy-MM-dd HH:mm'}}</button>
-		</div>
-
 		<h2>Start a new game</h2>
 		<form role="form">
 			<div class="form-group">
@@ -19,7 +14,12 @@
 				<label>Opponent</label>
 				<select class="form-control" ng-options="player.name for player in vm.players" ng-model="vm.player"></select>
 			</div>
-			<button class="btn btn-primary launchButton" type="submit" ng-click="vm.createGameSession()"><div class="fa fa-fw fa-paw"></div>Launch fight!</button>
+			<button class="btn btn-primary launchButton" type="submit" ng-click="vm.createGameSession()"><div class="fa fa-fw fa-paw"></div>Launch da fight!</button>
 		</form>
+		
+		<h2>Current games</h2>
+		<div ng-repeat="gameSession in vm.gameSessions" class="currentGameSession">
+			<button class="btn btn-primary continueButton" ng-click="vm.continueGameSession(gameSession)">{{gameSession.gameType}} - Started: {{gameSession.created|date:'yyyy-MM-dd HH:mm'}}</button>
+		</div>
 	</div>
 </div>
