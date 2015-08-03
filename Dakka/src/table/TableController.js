@@ -131,7 +131,7 @@ class TableController {
 		let cardSize = 100;
 		let cardsInStack = $(event.target).children().length - 1;
 		let left = cardsInStack * 20;
-		$(ui.draggable).css({top: 0, left: left + 'px'});
+		$(ui.draggable).css({top: '20px', left: left + 'px'});
 
 		// Make frame wider
 		if (cardsInStack < 0) {

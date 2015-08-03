@@ -45,12 +45,15 @@ class PhaseSetupController {
 				_this._gameSessionService.currentGameSession.deck.members.forEach((member) => {
 					let filteredCards = cardsRef.filter((element) => { return element.id == member.cardId; });
 					if (filteredCards.length > 0) {
-						filteredCards[0].$id = filteredCards[0].id;
 						for (let i=0;i<member.quantity;i++) {
-							cardArea.cards.push(new Card(filteredCards[0]));
+							// May not be needed
+							let card = angular.fromJson(angular.toJson(filteredCards[0]));
+							card.id += "-" + i;
+							card.$id = card.id;
+							cardArea.cards.push(new Card(card));
 						}
 					} else {
-						alert('Card with id: ' + member.cardId	 + " is not in card pool");
+						//alert('Card with id: ' + member.cardId	 + " is not in card pool");
 					}
 					
 				});	

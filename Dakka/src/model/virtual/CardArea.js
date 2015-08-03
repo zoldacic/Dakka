@@ -64,6 +64,10 @@ class CardArea {
 	isExpandable() {
 		return this._cardAreaSettings.isExpandable();
 	}
+	
+	isHidden() {
+		return this._cardAreaSettings.isHidden();
+	}
 }
 
 export {CardArea}

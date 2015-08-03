@@ -7,7 +7,7 @@ class CardAreaSettings {
 		this._cardPadding = 2;
 		
 		this._cardFoldingEnum = cardFoldingEnum;
-		this._cardFolding = this._cardFoldingEnum.OVERLAPPING;
+		this._cardFolding = this._cardFoldingEnum.TOGETHER;
 
 	}
 
@@ -73,6 +73,10 @@ class CardAreaSettings {
 
 	isExpandable() {
 		return this._cardFolding != this._cardFoldingEnum.FULL;
+	}
+	
+	isHidden() {
+		return this._ref.hidden ? true : false;
 	}
 }
 
