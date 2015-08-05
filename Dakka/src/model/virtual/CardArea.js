@@ -1,10 +1,10 @@
 ﻿
 class CardArea {
-	constructor(ref, cardAreaSettings) { 
+	constructor(ref, cardAreaSettings, cards) { 
 		this._ref = ref;
+		this._cards = cards;
 
 		this._cardSize = new Array(100, 139);
-		this._cards = [];
 		this._cardPadding = 2;	
 
 		this._cardAreaSettings = cardAreaSettings;
@@ -21,8 +21,8 @@ class CardArea {
 	get widthInPixels() {
 		let width = this._cardSize[0];
 
-		if (this._cards.length > 1) {
-			width = this.getCardPositionLeft(this._cards.length-1) + this._cardSize[0];
+		if (this.cards.length > 1) {
+			width = this.getCardPositionLeft(this.cards.length-1) + this._cardSize[0];
 		}			
 			
 		return width + this._cardPadding * 2;
@@ -36,6 +36,10 @@ class CardArea {
 	get cards() {
 		return this._cards;
 	}
+	
+	set cards(value) {
+		this.cards = value;
+	} 
 
 	get left() {
 		return this._cardAreaSettings.left;
@@ -51,6 +55,14 @@ class CardArea {
 
 	set top(value) {
 		this._cardAreaSettings.top = value;			
+	}
+	
+	save() {
+		this._ref.$save();
+	}
+
+	watch(callback) {
+		this._ref.$watch(callback);
 	}
 
 	changeCardDisplay() {

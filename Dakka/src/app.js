@@ -45,7 +45,7 @@ angular
 	.controller('gameSetupController', GameSetupController)
 	.controller('phaseSetupController', PhaseSetupController)
 	.run(["setupService", function(setupService) {
-		setupService.initTest();
+		//setupService.initTest();
 	}])
 	.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 

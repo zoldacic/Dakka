@@ -1,7 +1,8 @@
 ﻿import {Card} from '../model/physical/card';
 
 class PhaseSetupController {
-	constructor($scope, $state, phaseService, phaseEnum, factionEnum, gameSessionService, setupService, firebaseService, tableService) {
+	constructor($q, $scope, $state, phaseService, phaseEnum, factionEnum, gameSessionService, setupService, firebaseService, tableService, loginService) {
+		this._$q = $q;
 		this._$scope = $scope;
 		this._$state = $state;
 		this._phaseEnum = phaseEnum;
@@ -11,6 +12,7 @@ class PhaseSetupController {
 		this._gameSessionService = gameSessionService;
 		this._firebaseService = firebaseService;
 		this._tableService = tableService;
+		this._loginService = loginService;
 	}
 
 	get phase() {
@@ -40,25 +42,37 @@ class PhaseSetupController {
 	_addCards() {
 		let _this = this;
 		
-		return _this._firebaseService.getCardsRef().then((cardsRef) => {
-				let cardArea = _this._tableService.cardAreas.filter((element) => { return element.id == "MyCardPile"; })[0];
-				_this._gameSessionService.currentGameSession.deck.members.forEach((member) => {
-					let filteredCards = cardsRef.filter((element) => { return element.id == member.cardId; });
-					if (filteredCards.length > 0) {
-						for (let i=0;i<member.quantity;i++) {
-							// May not be needed
-							let card = angular.fromJson(angular.toJson(filteredCards[0]));
-							card.id += "-" + i;
-							card.$id = card.id;
-							cardArea.cards.push(new Card(card));
-						}
-					} else {
-						//alert('Card with id: ' + member.cardId	 + " is not in card pool");
-					}
-					
-				});	
-			})
+		let promises = [];
+		promises.push(_this._loginService.getLoggedInPlayer());
+		promises.push(_this._firebaseService.getCardsRef());
 		
+		return _this._$q.all(promises).then((result) => {
+			let player = result[0];
+			let cardsRef = result[1];
+			
+			let prefix = "Player1";
+			if (player.id != _this._gameSessionService.currentGameSession.player1) prefix = "Player2"; 
+			
+			let cardArea = _this._tableService.cardAreas.filter((element) => { return element.id == prefix + "CardPile"; })[0];
+			
+			_this._gameSessionService.currentGameSession.deck.members.forEach((member) => {
+				let filteredCards = cardsRef.filter((element) => { return element.id == member.cardId; });
+				if (filteredCards.length > 0) {
+					for (let i=0;i<member.quantity;i++) {
+						// May not be needed
+						let card = angular.fromJson(angular.toJson(filteredCards[0]));
+						card.id += "-" + i;
+						card.$id = card.id;
+						//cardArea.cards.push(new Card(card));
+						cardArea.cards.$add(card);
+					}
+				} else {
+					//alert('Card with id: ' + member.cardId	 + " is not in card pool");
+				}					
+			});	
+			
+			cardArea.save();
+		});		
 	}
 	
 	playerDoneWithPhase() {
@@ -66,11 +80,9 @@ class PhaseSetupController {
 		_this._phaseService.nextPhase();
 		
 		_this._setupService.init(_this._gameSessionService.currentGameSession)
-			.then(() => { 
-				_this._gameSessionService.currentGameSession.deck = _this._deck; 
-				})
+			.then(() => { _this._gameSessionService.currentGameSession.deck = _this._deck; return _this._gameSessionService.currentGameSession.deck; })
 			.then(() => { return _this._addCards(); })
-			.then(() => { _this._$state.go('dashboard.table') });
+			.then(() => { _this._$state.go('dashboard.table'); });
 		
 		// if (!this._$scope.$$phase) {
 		// 	this._$scope.$apply();

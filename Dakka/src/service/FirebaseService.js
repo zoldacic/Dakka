@@ -62,6 +62,10 @@ class FirebaseService {
 	getCardAreaSettings(player, gameSessionId, cardAreaRef) {
 		return this.getObjectRef("gameSessions/" + gameSessionId + "/cardAreas/settings/" + player.id + "/" + cardAreaRef.$id);
 	}	
+	
+	getCardAreaCards(gameSessionId, cardAreaRef) {
+		return this.getRef("gameSessions/" + gameSessionId + "/cardAreas/cards/" + cardAreaRef.$id);
+	}
 
 	getCardAreas(player, gameSessionId) {		
 		return this.getCardAreasRef(gameSessionId).then((cardAreasRef) => { 
@@ -71,11 +75,12 @@ class FirebaseService {
 							
 				let promises = [];
 				promises.push(this.getCardArea(gameSessionId, cardAreaRef));
-				promises.push(this.getCardAreaSettings(player, gameSessionId, cardAreaRef));				
+				promises.push(this.getCardAreaSettings(player, gameSessionId, cardAreaRef));
+				promises.push(this.getCardAreaCards(gameSessionId, cardAreaRef));				
 							
 				cardAreaPromises.push(this._$q.all(promises).then((result) => { 
 					let cardAreaSettings = new CardAreaSettings(result[1], this._cardFoldingEnum); 
-					cardAreas.push(new CardArea(result[0], cardAreaSettings));
+					cardAreas.push(new CardArea(result[0], cardAreaSettings, result[2]));
 				}));
 			});
 		

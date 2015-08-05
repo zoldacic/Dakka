@@ -23,7 +23,6 @@ class GameSessionService {
 
 	continueGameSession(gameSession) {
 		this._currentGameSession = gameSession;
-
 		this._loginService.getLoggedInPlayer().
 			then(() => { this._$state.go('dashboard.table.phaseSetup'); });	
 	}
@@ -47,7 +46,6 @@ class GameSessionService {
 				// Clean out '$$'-variables
 				let templateAreasRefCopy = angular.fromJson(angular.toJson(templateAreasRef));
 				_this._currentGameSession.ref.cardAreas = { common: templateAreasRefCopy }; 
-				return _this._currentGameSession.ref.$save(); 
 			}));		
 		};		
 		
@@ -60,14 +58,23 @@ class GameSessionService {
 					_this._currentGameSession.ref.cardAreas.settings[player.id] = templateAreaSettingsRefCopy;
 					
 				}); 
-				return _this._currentGameSession.ref.$save(); 
 			}));		
 		};		
 		
+		let addPlayerSpecificInfoToGameSession = () => {
+			_this._currentGameSession.player1 = players[1].id;
+			_this._currentGameSession.player2 = players[0].id;			
+		}
+		
 		let addGameSessionToPlayerGameSessions = () => {
-			return _this._firebaseService.getPlayerGameSessionsRef(_this.loggedInPlayer).then((playerGameSessionsRef) => {
-				 return playerGameSessionsRef.$add({ gameSessionId: _this._currentGameSession.id });
+			let promises = [];
+			players.forEach((player) => {
+				promises.push(_this._firebaseService.getPlayerGameSessionsRef(player).then((playerGameSessionsRef) => {
+					 return playerGameSessionsRef.$add({ gameSessionId: _this._currentGameSession.id });
+				}));
 			});
+			
+			return _this._$q.all(promises);
 		};
 
 		let gameSessionsRef = null;
@@ -83,6 +90,8 @@ class GameSessionService {
 			then(() => { return addTemplateCardAreasToGameSession(game); }).
 			then(() => { return addTemplateCardAreaSettingsToGameSession(game, players); }).
 			then(() => { return addGameSessionToPlayerGameSessions(); }).
+			then(() => { return addPlayerSpecificInfoToGameSession(); }).
+			then(() => { return _this._currentGameSession.ref.$save(); }).
 										            
     		then(() => { this._$state.go('dashboard.table.phaseSetup'); });
 	}

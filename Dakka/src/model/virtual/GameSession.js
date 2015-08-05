@@ -32,6 +32,22 @@ class GameSession {
 	set cardAreas(value) {
 		this._cardAreas = value;
 	}
+	
+	get player1() {
+		return this._ref.player1;
+	}
+	
+	set player1(value) {
+		this._ref.player1 = value;
+	}
+	
+	get player2() {
+		return this._ref.player2;
+	}
+	
+	set player2(value) {
+		this._ref.player2 = value;
+	}	
 }
 
 export {GameSession}

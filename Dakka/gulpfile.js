@@ -60,10 +60,18 @@ gulp.task('watch', ['build-persistent'], function() {
 });
 
 // WEB SERVER
-gulp.task('serve', function () {
+gulp.task('serve-sync', function () {
  browserSync({
    server: {
      baseDir: './'
    }
  });
+});
+
+connect = require('gulp-connect');
+gulp.task('serve', function() {  
+  connect.server({
+    port: 3000,
+    host: '10.0.1.3'
+  });
 });
