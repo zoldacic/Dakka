@@ -9,7 +9,7 @@ class TableController {
 		this._lightbox = Lightbox;
 		this._positionedCardAreas = [];
 
-		this.stopDraggingCard = (event, ui, {card: card}) => { this._$timeout(() => { card.stopDragging(); }, 500); }.bind(this);
+		this.stopDraggingCard = (event, ui, {card: card}) => { this._$timeout(() => { card.dragging = true; }, 500); }.bind(this);
 	}
 
 	get cardAreas() {
@@ -68,7 +68,7 @@ class TableController {
 	}
 
 	startDraggingCard(event, ui, {card: card}) {
-		card.startDragging();
+		card.dragging = false;
 	}
 
 

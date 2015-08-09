@@ -62,7 +62,11 @@ angular
 			.state('dashboard.gamesetup',{ url:'/gamesetup', controller: 'gameSetupController', templateUrl:'/src/gamesetup/gamesetup.html'});
 	}])
 	.config(function (LightboxProvider) {
-		LightboxProvider.getImageUrl = card => { return card.image; }
+		LightboxProvider.getImageUrl = card => {
+			let slashIndex = card.imageBase.lastIndexOf("/");
+			let filename = card.imageBase.substring(slashIndex + 1);
+			return "img/cards/wh40kc/" + filename + ".jpg";  
+		}
 	});
 
 

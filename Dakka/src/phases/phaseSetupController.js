@@ -63,6 +63,7 @@ class PhaseSetupController {
 						let card = angular.fromJson(angular.toJson(filteredCards[0]));
 						card.id += "-" + i;
 						card.$id = card.id;
+						card.draggable = true;
 						//cardArea.cards.push(new Card(card));
 						cardArea.cards.$add(card);
 					}

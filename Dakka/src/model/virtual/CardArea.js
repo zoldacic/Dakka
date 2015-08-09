@@ -38,10 +38,11 @@ class CardArea {
 	}
 	
 	cardsFn() {
+		let _this = this;
 		return {
 			getImage: (card) => { 
-				let slashIndex = this._ref.imageBase.lastIndexOf("/");
-				let filename = this._ref.imageBase.substring(slashIndex + 1);
+				let slashIndex = card.imageBase.lastIndexOf("/");
+				let filename = card.imageBase.substring(slashIndex + 1);
 				return "img/cards/wh40kc/" + filename + ".jpg"; 
 			}
 		};
