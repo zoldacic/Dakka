@@ -16,7 +16,7 @@
 			<div class="cardAreaFrame" ng-model="cardArea.cards" data-drop="true" jqyoui-droppable="{onDrop: 'table.onCardDrop({cardAreas: table.cardAreas})', multiple:true, stack:true}" data-jqyoui-options="table.verifyCardDrop" ng-style="{'min-width': cardArea.widthInPixels, 'width': cardArea.widthInPixels, 'max-width': cardArea.widthInPixels, 'min-height': cardArea.heightInPixels, 'height': cardArea.heightInPixels, 'max-height': cardArea.heightInPixels }">
 
 				<div ng-repeat="card in cardArea.cards" ng-attr-id="{{card.id}}" ng-style="{left: cardArea.getCardPositionLeft($index) + 'px', top: '20px'}" data-drag="card.draggable" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{onStart:'table.startDraggingCard({card: card})', onStop:'table.stopDraggingCard({card: card})', animate:true}" class="btn btn-primary card" ng-click="table.openLightboxModal(cardArea.cards, $index)">
-					<img ng-hide="cardArea.isHidden()" class="cardImage" ng-class="{rotated: cardArea.rotatedCards}" ng-src="{{card.image}}" />
+					<img ng-hide="cardArea.isHidden()" class="cardImage" ng-class="{rotated: cardArea.rotatedCards}" ng-src="{{cardArea.cardsFn().getImage(card)}}" />
 					<img ng-show="cardArea.isHidden()" class="cardImage" ng-class="{rotated: cardArea.rotatedCards}" ng-src="img/cards/wh40kc/back.png" />
 				</div>
 			</div>
