@@ -1,5 +1,4 @@
 import {GameSession} from '../model/virtual/GameSession'
-import {PlayerGameSession} from '../model/virtual/PlayerGameSession'
 import {Player} from '../model/virtual/Player'
 import {CardArea} from '../model/virtual/CardArea'
 import {CardAreaSettings} from '../model/virtual/CardAreaSettings'

@@ -1,6 +1,5 @@
 ﻿
 import {GameSession} from '../model/virtual/GameSession'
-import {PlayerGameSession} from '../model/virtual/PlayerGameSession'
 import {Player} from '../model/virtual/Player'
 
 class GameSessionService { 

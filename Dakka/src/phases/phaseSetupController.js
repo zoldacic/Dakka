@@ -64,6 +64,10 @@ class PhaseSetupController {
 						card.id += "-" + i;
 						card.$id = card.id;
 						card.draggable = true;
+						if (!card.left) {
+							card.left = 0;
+							card.top = 0;
+						}
 						//cardArea.cards.push(new Card(card));
 						cardArea.cards.$add(card);
 					}

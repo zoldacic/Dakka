@@ -7,7 +7,6 @@ import {PersonaService} from './login/PersonaService';
 import {FirebaseService} from './service/FirebaseService';
 import {GameSessionService} from './service/GameSessionService';
 import {PhaseService} from './service/PhaseService';
-import {PlaygroundController} from './playground/PlaygroundController';
 import {PersonaController} from './login/PersonaController';
 import {GameSetupController} from './gamesetup/GameSetupController';
 import {PhaseSetupController} from './phases/PhaseSetupController';
@@ -40,7 +39,6 @@ angular
 	.service('factionEnum', FactionEnum)
 	.controller('mainController', MainController)
 	.controller('tableController', TableController)
-	.controller('playgroundController', PlaygroundController)
 	.controller('personaController', PersonaController)
 	.controller('gameSetupController', GameSetupController)
 	.controller('phaseSetupController', PhaseSetupController)
@@ -53,7 +51,6 @@ angular
 
 		$stateProvider
 			.state('table',			{ url:'/table', templateUrl: '/src/table/table.html'})
-			.state('playground',	{ url:'/playground', templateUrl: '/src/playground/playground.html'})
 			.state('dashboard',		{ url:'/dashboard', templateUrl: '/src/dashboard/main.html'})
 		    .state('dashboard.home',{ url:'/home', controller: 'mainController', templateUrl:'/src/dashboard/home.html'})
 			.state('dashboard.table',{ url:'/table', controller: 'tableController', templateUrl:'/src/table/table.html'})

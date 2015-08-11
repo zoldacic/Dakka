@@ -9,7 +9,9 @@ class TableController {
 		this._lightbox = Lightbox;
 		this._positionedCardAreas = [];
 
-		this.stopDraggingCard = (event, ui, {card: card}) => { this._$timeout(() => { card.dragging = true; }, 500); }.bind(this);
+		this.stopDraggingCard = (event, ui, {card: card}) => { 
+			this._$timeout(() => { card.dragging = true; }, 500); 
+			}.bind(this);
 	}
 
 	get cardAreas() {
@@ -73,7 +75,7 @@ class TableController {
 
 
 	stopDraggingCard(event, ui, {card: card}) {
-		let a = 0;
+		//let a = 0;
 	}
 
 	onCardDrop(event, ui, {cardAreas: cardAreas}) {
@@ -130,8 +132,19 @@ class TableController {
 		// TODO: GET CARDSIZE FROM ??
 		let cardSize = 100;
 		let cardsInStack = $(event.target).children().length - 1;
-		let left = cardsInStack * 20;
-		$(ui.draggable).css({top: '20px', left: left + 'px'});
+		//let left = cardsInStack * 20;
+		
+		//let top = ui.position.top + (oldCardArea.top.substring(0, oldCardArea.top.length-2) - cardArea.top.substring(0, cardArea.top.length-2));
+		//let left = ui.position.left + (oldCardArea.left.substring(0, oldCardArea.left.length-2) - cardArea.left.substring(0, cardArea.left.length-2));
+		
+		let top = ui.offset.top - $(event.target).offset().top;
+		let left = ui.offset.left - $(event.target).offset().left;
+		
+		$(ui.draggable).css({top: top + 'px', left: left + 'px'});
+		card.top = top;
+		card.left = left;
+		//$(ui.draggable).css({top: ui.position.top + 'px', left: ui.position.left + 'px'});
+		//$(ui.draggable).css({top: '20px', left: left + 'px'});
 
 		// Make frame wider
 		if (cardsInStack < 0) {

@@ -25,12 +25,14 @@ class CardArea {
 			width = this.getCardPositionLeft(this.cards.length-1) + this._cardSize[0];
 		}			
 			
-		return width + this._cardPadding * 2;
+		//return width + this._cardPadding * 2;
+		return 200;
 	}
 
 	get heightInPixels() {
 		let height = this._rotatedCards ? this._cardSize[0]: this._cardSize[1];
-		return height + this._cardPadding * 2;
+		//return height + this._cardPadding * 2;
+		return 200;
 	}
 
 	get cards() {
