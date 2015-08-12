@@ -12641,7 +12641,6 @@
     <Content Include="src\enum\GameTypeEnum.js" />
     <Content Include="src\model\virtual\CardAreaSettings.js" />
     <Content Include="src\model\virtual\Game.js" />
-    <Content Include="src\model\virtual\PlayerGameSession.js" />
     <Content Include="src\phases\PhaseSetup.html" />
     <Content Include="src\phases\PhaseSetupController.js" />
     <Content Include="src\service\GameSessionService.js" />
