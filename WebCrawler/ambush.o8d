@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deck game="af04f855-58c4-4db3-a191-45fe33381679">
+    <section name="Warlord">
+        <card id="b1115ec0-ab4e-4fb3-91b8-0d6605c0e763" qty="1">Aun'shi</card>
+    </section>
+    <section name="Armies">
+        <card id="0f3a9035-556e-4b13-8c8a-297a01ebb250" qty="4">Ethereal Envoy</card>
+        <card id="19d00f36-029f-4587-bd61-08e85d60ad35" qty="2">Frontline Launch Bay</card>
+        <card id="0c68e170-9754-4f25-a29e-cc92f1810b20" qty="3">Ion Rifle</card>
+        <card id="73ecedf6-b976-4dc9-8e30-2ceba2cc3191" qty="2">Deception</card>
+        <card id="3acef22b-e5d3-4201-8623-32730b942f84" qty="3">Fireblade Kais'Vre</card>
+        <card id="b79defdf-d89a-48cc-b47e-ebf757760976" qty="3">Recon Drone</card>
+        <card id="833868a7-4f25-4cb2-aa96-1f6d20553950" qty="2">Stingwing Swarm</card>
+        <card id="fb3f9168-a1c9-47eb-b367-91f4c3d07330" qty="2">Carnivore Pack</card>
+        <card id="52f3a180-b530-458c-8531-8cf1bbfa7214" qty="2">Ethereal Wisdom</card>
+        <card id="71cb54c0-b5d9-46e8-bea5-20635e80ce59" qty="2">Piranha Hunter</card>
+        <card id="b370e6d8-a71a-47ea-9a90-0d76d8ca19d5" qty="1">Calculated Strike</card>
+        <card id="d748c19e-6e72-4720-814d-e2c77b62de57" qty="1">Even the Odds</card>
+        <card id="414f89a5-14a6-454f-a1e2-4ea664bc5476" qty="2">Ambush Platform</card>
+        <card id="4a8ace46-0b39-4298-ba9d-d0d2223d82f1" qty="1">Homing Beacon</card>
+        <card id="5aef0594-b99b-4cc2-9d42-610f3d76ca42" qty="2">Vior'la Marksman</card>
+        <card id="8f05530e-982d-4902-bfe3-f7ba825a175e" qty="3">Kauyon Strike</card>
+        <card id="a61d503d-89e2-4106-820c-cde9977b59a0" qty="2">Foretell</card>
+        <card id="43b4ae5b-5c64-4289-96c7-a6ca0a151136" qty="3">Ksi'm'yen Orbital City</card>
+        <card id="54861664-3b14-4af2-8c9d-26b25930b631" qty="3">Heavy Marker Drone</card>
+        <card id="703d87a8-9f83-489d-b3eb-7a1ca635e53c" qty="1">Vior'la Warrior Cadre</card>
+        <card id="5f867571-34b0-4fbc-bdec-b63e7d9b4f19" qty="2">Earth Caste Technician</card>
+        <card id="4a12e9a4-8775-4f28-95fe-1976a9a2dffb" qty="2">Promotion</card>
+        <card id="842fa2c6-ae38-4f13-9848-c8c909f8b45d" qty="3">Fire Warrior Grenadiers</card>
+        <card id="c71d64a1-5406-4363-9a83-fcbddcc808e4" qty="1">Honor Blade</card>
+        <card id="c590d2da-383b-4525-9b83-8f9409eace6a" qty="1">Aun'shi's Sanctum</card>
+        <card id="94d226a4-4f8c-45ed-a9be-d1aca2d1d0ef" qty="1">Inquisitor Caius Wroth</card>
+        <card id="0229ed87-fbbf-4d26-aeec-4fd4f56bd68a" qty="2">Vash'ya Trailblazer</card>
+        <card id="c7e69603-0068-4fc0-acb2-0c5d43544df7" qty="3">Bork'an Recruits</card>
+        <card id="06c0d9b1-2abf-43b6-a744-81f9470a0b35" qty="3">Tense Negotiations</card>
+        <card id="396fd155-9391-4d3a-b92e-640c9b13ce6c" qty="3">Repulsor Impact Field</card>
+        <card id="7185d8a3-765d-4403-aa32-69ba801e150b" qty="2">Aun'ui Prelate</card>
+    </section>
+</deck>
