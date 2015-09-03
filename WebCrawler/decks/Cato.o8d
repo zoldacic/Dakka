@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deck game="af04f855-58c4-4db3-a191-45fe33381679">
+    <section name="Warlord">
+        <card id="d8a1bb05-2b03-405b-aa32-4549b2d1d020" qty="1">Captain Cato Sicarius</card>
+    </section>
+    <section name="Armies">
+        <card id="b72f896b-a506-4316-90b0-fceee972b0c9" qty="1">Nocturne-Ultima Storm Bolter</card>
+        <card id="94d226a4-4f8c-45ed-a9be-d1aca2d1d0ef" qty="1">Inquisitor Caius Wroth</card>
+        <card id="062ac44d-4e71-4d41-b60e-72df94e71eb6" qty="2">The Fury of Sicarius</card>
+        <card id="842fa2c6-ae38-4f13-9848-c8c909f8b45d" qty="1">Fire Warrior Grenadiers</card>
+        <card id="f08a8fd1-dd92-4c2f-85d8-4a8ec4be72dc" qty="1">Primal Howl</card>
+        <card id="69ee65e3-8e87-4eb7-a052-dd49041a8d0d" qty="1">Firedrake Terminators</card>
+        <card id="b7e2135b-2e04-4d0b-a448-d548c1c5f4e8" qty="1">Cato's Stronghold</card>
+        <card id="bc59418a-bce0-44a9-8807-4faeaf7b49e7" qty="1">For the Tau'va</card>
+        <card id="c6e6862d-85f3-4666-882c-ef7ec333c392" qty="1">Tallassarian Tempest Blade</card>
+        <card id="238ef37b-aed9-4e29-943a-173654955fe8" qty="4">Sicarius's Chosen</card>
+        <card id="703d87a8-9f83-489d-b3eb-7a1ca635e53c" qty="1">Vior'la Warrior Cadre</card>
+        <card id="a035af8d-4f88-4022-958e-5c01e8056c3a" qty="1">Hallow Librarium</card>
+        <card id="aded9eb6-6b5c-4a42-bb14-4331753ec6ac" qty="1">Space Wolves Predator</card>
+        <card id="e59000a2-c6a6-472d-8629-faf1d23abb37" qty="1">Imperial Fists Siege Force</card>
+    </section>
+</deck>

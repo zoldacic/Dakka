@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deck game="af04f855-58c4-4db3-a191-45fe33381679">
+    <section name="Warlord">
+        <card id="517bc608-595b-4090-a303-ecf0f898ccad" qty="1">Urien Rakarth</card>
+    </section>
+    <section name="Armies">
+        <card id="56f78418-7cff-478b-8d05-992e0547ff21" qty="1">Urien's Oubliette</card>
+        <card id="0f9cf5af-9188-424f-8179-91149b3ab4e5" qty="1">Ichor Gauntlet</card>
+        <card id="4da8e82b-56ba-4249-b41a-f7b581c1d819" qty="1">Shadow Field</card>
+        <card id="de9fced7-ae6d-4a7d-9dfd-aa1304c1df99" qty="2">Twisted Wracks</card>
+        <card id="ad74d292-28fa-40dc-bfdc-835126136468" qty="4">Rakarth's Experimentations</card>
+    </section>
+</deck>

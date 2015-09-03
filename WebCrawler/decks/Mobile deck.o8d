@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deck game="af04f855-58c4-4db3-a191-45fe33381679">
+    <section name="Warlord">
+        <card id="2bc2f49d-d360-4302-85fd-18e37d17736a" qty="1">Baharroth</card>
+    </section>
+    <section name="Armies">
+        <card id="06e27d10-e4b2-4bff-a7e5-74ce473bf510" qty="4">Baharroths Hawks</card>
+        <card id="645c82fc-a264-4d97-afec-487078f63ce6" qty="1">Iyanden Wraithguard</card>
+        <card id="1195ad7e-02b5-492a-9d3d-a9f41607e99f" qty="1">Nullify</card>
+        <card id="455117a7-2ca7-4f5d-b0f1-8bb39f6959ef" qty="2">Eldar Survivalist</card>
+        <card id="40e707c3-e723-415d-a4cb-ac991ce92014" qty="1">Biel-Tan Guardians</card>
+        <card id="41066b2a-20af-43d3-88c4-ddd8d79d37a0" qty="1">Wailing Wraithfighter</card>
+        <card id="1ebe553e-47b7-4494-acbd-a4263d5d7aba" qty="1">Superiority</card>
+        <card id="faf04c7d-1e22-4d20-93ee-b5370f0b6025" qty="1">Silvered Blade Avengers</card>
+        <card id="53470884-9e62-49df-ae6f-d5dc07898138" qty="2">Cry of the Wind</card>
+        <card id="3a56b4f2-0e75-48da-8f75-cb811c006c40" qty="1">The Shining Blade</card>
+        <card id="3d8ebf5b-f6cc-40b6-a3aa-5684f4aa0bb9" qty="1">Gift of Isha</card>
+        <card id="4610c05a-fbbc-4e35-ab15-394e84750399" qty="1">Spiritseer Erathal</card>
+        <card id="b7d4c64c-2046-4306-81a8-0ec0e6f52247" qty="1">Swordwind Farseer</card>
+        <card id="2744182e-15e0-41a9-b96e-b8266964b066" qty="1">Banner of the Ashen Sky</card>
+        <card id="0192279f-edb3-41b0-a8ab-195bb33f0d89" qty="1">Craftworld Gate</card>
+        <card id="a61d503d-89e2-4106-820c-cde9977b59a0" qty="2">Foretell</card>
+        <card id="73f69447-e8ee-4670-9b57-37bb12119586" qty="3">Seer's Exodus</card>
+        <card id="f300e4c5-c924-4363-90f6-72d2da11f57c" qty="3">Black Guardians</card>
+        <card id="6f23f0d0-5de4-4e84-9d37-8a99c19080b1" qty="1">Doom</card>
+        <card id="7baa99ab-7f5c-4cb5-b684-68c4050f2eec" qty="1">Death from Above</card>
+        <card id="02810214-b950-41c7-a46f-5c2c6121035d" qty="1">Corsair Trading Port</card>
+        <card id="bea03df8-45f5-4b85-a7a9-4cda494439bb" qty="3">Starcannon</card>
+        <card id="0d24d1c9-990c-4e7b-89a0-8ab5aa077440" qty="2">Slumbering Gardens</card>
+        <card id="d2486da2-1e07-4778-a0a8-d966c8eb59e3" qty="3">Vectored Vyper Squad</card>
+        <card id="b15f9837-78a0-434f-ada2-967eb60c1892" qty="3">Eldritch Corsair</card>
+        <card id="2aefe4a2-1ae9-4a89-9181-2d02c15f7074" qty="1">Altansar Rangers</card>
+        <card id="cb08b7e3-d50b-4f33-97ae-0e983b48d3f5" qty="1">Wildrider Squadron</card>
+        <card id="c29d6370-e659-4c0f-ac37-53bbb74682b9" qty="3">Guardian Mesh Armor</card>
+        <card id="c1ef50ec-240e-42b7-b44a-92a308ddb081" qty="1">Mighty Wraithknight</card>
+    </section>
+</deck>

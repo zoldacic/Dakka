@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deck game="af04f855-58c4-4db3-a191-45fe33381679">
+    <section name="Warlord">
+        <card id="" qty="1">"Old One Eye"</card>
+    </section>
+    <section name="Armies">
+        <card id="" qty="1">Mycetic Spores</card>
+        <card id="" qty="1">Ripper Swarm</card>
+        <card id="4a12e9a4-8775-4f28-95fe-1976a9a2dffb" qty="1">Promotion</card>
+        <card id="" qty="1">Ymgarl Genestealer</card>
+        <card id="" qty="1">Volatile Pyrovore</card>
+        <card id="8dc7d63b-d902-459d-8485-53c23884825d" qty="1">Promethium Mine</card>
+        <card id="" qty="1">Termagant Sentry</card>
+        <card id="" qty="1">Savage Warrior Prime</card>
+        <card id="" qty="1">Stalking Lictor</card>
+        <card id="" qty="1">Burrowing Trygon</card>
+        <card id="" qty="1">Hunting Gargoyle</card>
+        <card id="" qty="1">Synaptic Link</card>
+        <card id="" qty="1">Scything Hormagaunts</card>
+        <card id="" qty="1">Strangler Brood</card>
+        <card id="" qty="1">Termagant Spikers</card>
+        <card id="" qty="1">Awakening Cavern</card>
+        <card id="" qty="1">Toxic Venomthrope</card>
+        <card id="" qty="1">Spawn Termagants</card>
+        <card id="" qty="1">Regeneration</card>
+        <card id="" qty="1">Consumption</card>
+        <card id="" qty="1">Parasitic Infection</card>
+        <card id="" qty="1">Clogged with Corpses</card>
+        <card id="87913781-916d-42af-8204-ae5e99d9fd20" qty="1">Calamity</card>
+        <card id="" qty="1">Brood Chamber</card>
+        <card id="" qty="1">Gravid Tervigon</card>
+        <card id="" qty="1">Dark Cunning</card>
+        <card id="" qty="1">Ravenous Haruspex</card>
+        <card id="" qty="2">Ferocious Strength</card>
+        <card id="" qty="1">Termagant Horde</card>
+        <card id="" qty="1">Swarm Guard</card>
+        <card id="" qty="4">Lurking Hormagaunt</card>
+        <card id="d68a7bff-59fc-44ad-a29e-bda96f705ac6" qty="1">Fall Back!</card>
+        <card id="" qty="1">Adamant Hive Guard</card>
+        <card id="" qty="1">Great Scything Talons</card>
+        <card id="" qty="1">Tyranid Warrior</card>
+        <card id="" qty="1">Spore Burst</card>
+        <card id="35656adf-3ea3-4409-a152-7842f96ee23c" qty="1">No Mercy</card>
+        <card id="" qty="1">Biovore Spoer Launcher</card>
+        <card id="" qty="1">Shrieking Harpy</card>
+        <card id="" qty="1">Digestion Pool</card>
+        <card id="" qty="1">Heavy Venom Cannon</card>
+        <card id="" qty="1">Blazing Zoanthrope</card>
+        <card id="" qty="1">Predation</card>
+        <card id="" qty="1">Virulent Spore Sacs</card>
+        <card id="" qty="1">Spore Chimney</card>
+        <card id="" qty="1">Venomthrope Polluter</card>
+        <card id="" qty="1">Noxious Fleshborer</card>
+        <card id="" qty="1">Pincer Tail</card>
+    </section>
+</deck>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.AccessControl;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -14,33 +15,26 @@ namespace WebCrawler
 {
 	class Program
 	{
-		static void Main(string[] args)
+        static List<string> octgnDirs = Directory.EnumerateDirectories(@"C:\Documents and Settings\xxlundgf\Documents\OCTGN\ImageDatabase").ToList();
+
+       static void Main(string[] args)
 		{
-			//Test();
-
-			//var cards = new Dictionary<string, Dictionary<string, string>>();
-			//ExtractInfo(cards, @"C:\Src\es6\Dakka\TestData\Nazdreg.html");
-
-            //Crawl("http://www.conquestdb.com/en/card/search?faction=ork", cards);
-            //var json = CreateCardJson(cards);
-            //File.WriteAllText(@"C:\Src\es6\Dakka\TestData\Cards.json", json);
 
 		    Directory.CreateDirectory("images");
-		    GetCardNamesFromXml("ambush.o8d");
+		    GetDeckFiles();
+
+            MoveImagesToOctgnFolder();
 		}
 
-	    private static void GetCardNamesFromXml(string path)
+	    private static void GetDeckFiles()
 	    {
-	        var document = XDocument.Load(path);
-	        var sections = document.Descendants("section");
-	        foreach (var section in sections)
+	        var deckFiles = Directory.EnumerateFiles("decks");
+	        foreach (var deckFile in deckFiles)
 	        {
-	            foreach (var card in section.Descendants())
-	            {
-	                GoFetchImage(card.Attribute("id").Value, card.Value);
-	            }
+                GetCardNamesFromXml(deckFile);
 	        }
-	    }
+            
+        }
 
 	    private static string GetImageUrl(string cardName)
 	    {
@@ -54,6 +48,24 @@ namespace WebCrawler
 	        return imageUrl;
 	    }
 
+	    private static void GetCardNamesFromXml(string path)
+	    {
+	        var document = XDocument.Load(path);
+	        var sections = document.Descendants("section");
+	        foreach (var section in sections)
+	        {
+                foreach (var card in section.Descendants())
+	            {
+                    var id = card.Attribute("id").Value;
+	                if (!File.Exists("images/" + id + ".jpg"))
+	                {
+	                    GoFetchImage(id, card.Value);
+	                }
+	            }
+	        }
+	    }
+
+
         private static void GoFetchImage(string id, string cardName)
         {
             var imageUrl = GetImageUrl(cardName);
@@ -61,12 +73,34 @@ namespace WebCrawler
 
             var wc = new WebClient();
             wc.Headers[HttpRequestHeader.UserAgent] = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.121 Safari/535.2";
-            wc.DownloadFile(url, id + ".jpg");
+            wc.DownloadFile(url, "images/" + id + ".jpg");
         }
 
+	    private static void MoveImagesToOctgnFolder()
+	    {
+	        var images = Directory.EnumerateFiles("images");
+            images.ToList().ForEach(MoveImageToOctgnFolder);
+	    }
 
+	    private static void MoveImageToOctgnFolder(string imagePath)
+	    {
+            // af04f855-58c4-4db3-a191-45fe33381679\Sets\cdba7854-4c22-48f3-b388-74ca361b05d9\Cards
+            octgnDirs.ForEach(dir =>
+            {
+                var subDirs = Directory.EnumerateDirectories(dir + "\\Sets\\");
+                subDirs.ToList().ForEach(subDir =>
+                {
+                    var dest = subDir + "\\cards\\" + imagePath.Substring(6);
+                    if (File.Exists(dest))
+                    {
+                        File.Copy(imagePath, dest, true);
+                    }
+                });
 
-	    private static void Crawl(string url, Dictionary<string, Dictionary<string, string>> cards)
+            });
+        }
+
+        private static void Crawl(string url, Dictionary<string, Dictionary<string, string>> cards)
 		{
 			//var pageUri = new Uri(url);
 			//var wc = new WebClient();

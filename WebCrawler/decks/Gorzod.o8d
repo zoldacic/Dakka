@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deck game="af04f855-58c4-4db3-a191-45fe33381679">
+    <section name="Warlord">
+        <card id="" qty="1">Gorzod</card>
+    </section>
+    <section name="Armies">
+        <card id="1e1aa741-a464-45b5-9bb0-9d6aabb4e562" qty="1">Turbulent Rift</card>
+        <card id="" qty="4">Gorzod's Wagons</card>
+        <card id="55f0e1ad-0bce-4cf1-b1bb-2e795afcdd1b" qty="1">Squiggify</card>
+        <card id="17cfa2a4-74f5-4ffb-b01b-b23cfc0ea691" qty="1">Cacophonic Choir</card>
+        <card id="" qty="2">Hostile Acquisition</card>
+        <card id="940afed7-b09b-45f4-ad20-db89feab9b68" qty="1">Evil Sunz Warbiker</card>
+        <card id="94d226a4-4f8c-45ed-a9be-d1aca2d1d0ef" qty="1">Inquisitor Caius Wroth</card>
+        <card id="67d2c207-f181-45b9-9ffb-5b0973ce17ea" qty="1">Big Shoota Battlewagon</card>
+        <card id="c443b206-b199-4ff4-878b-a3c22b1afe43" qty="1">Mork's Great Heap</card>
+        <card id="9c65428d-b20c-46ec-bc9e-92e24782745b" qty="1">Ancient Keeper of Secrets</card>
+        <card id="" qty="1">Kustomisation Station</card>
+        <card id="1c138a7b-f8a6-4464-bae9-b7aff3f06aae" qty="1">Noise Marine Zealots</card>
+        <card id="542027e4-8275-46ab-86f7-0b7da82c6afc" qty="1">Made Ta Fight</card>
+        <card id="" qty="1">The Bloodrunna</card>
+    </section>
+</deck>

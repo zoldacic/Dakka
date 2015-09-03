@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deck game="af04f855-58c4-4db3-a191-45fe33381679">
+    <section name="Warlord">
+        <card id="ec181472-ac77-4f7f-b6dd-6fd44eb3cc23" qty="1">Torquemada Coteaz</card>
+    </section>
+    <section name="Armies">
+        <card id="8c364060-b171-44f3-8e38-e5550773bcb8" qty="2">The Emperor Protects</card>
+        <card id="f5768407-ea44-4ef2-9a6e-368e9de307d1" qty="4">Coteaz's Henchmen</card>
+        <card id="c317c444-1a7c-4551-8df0-8b8a19863a3f" qty="1">The Glovodan Eagle</card>
+        <card id="3a15c553-8e51-4896-a890-24210ce55b59" qty="1">Formosan Black Ship</card>
+    </section>
+</deck>

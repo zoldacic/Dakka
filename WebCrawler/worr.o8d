@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deck game="af04f855-58c4-4db3-a191-45fe33381679">
+    <section name="Warlord">
+        <card id="" qty="1">Broderick Worr</card>
+    </section>
+    <section name="Armies">
+        <card id="11501d87-40cd-4940-a043-91cb004fe932" qty="1">Snakebite Thug</card>
+        <card id="94d226a4-4f8c-45ed-a9be-d1aca2d1d0ef" qty="1">Inquisitor Caius Wroth</card>
+        <card id="" qty="2">Summary Execution</card>
+        <card id="" qty="1">Commissarial Bolt Pistol</card>
+        <card id="940afed7-b09b-45f4-ad20-db89feab9b68" qty="1">Evil Sunz Warbiker</card>
+        <card id="fb6c4aa1-0b88-4841-9f94-90a34c659297" qty="1">The Emperor's Warrant</card>
+        <card id="" qty="4">Anxious Infantry Platoon</card>
+        <card id="67d2c207-f181-45b9-9ffb-5b0973ce17ea" qty="1">Big Shoota Battlewagon</card>
+        <card id="6f9bd9cc-9b00-4654-a7fe-330fbca5ddb5" qty="1">Shrieking Basilisk</card>
+        <card id="542027e4-8275-46ab-86f7-0b7da82c6afc" qty="1">Made Ta Fight</card>
+        <card id="" qty="1">Forward Barracks</card>
+    </section>
+</deck>

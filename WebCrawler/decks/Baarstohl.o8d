@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deck game="af04f855-58c4-4db3-a191-45fe33381679">
+    <section name="Warlord">
+        <card id="" qty="1">Ba'ar Zul the Hate-Bound</card>
+    </section>
+    <section name="Armies">
+        <card id="8982e329-c304-4705-9dae-63fd61dfad6f" qty="1">Slaanesh's Temptation</card>
+        <card id="" qty="2">Blood for the Blood God!</card>
+        <card id="cda31d71-c497-4612-9e73-cac77570b4f5" qty="1">Doom Siren</card>
+        <card id="" qty="1">Kaerux Erameas</card>
+        <card id="17cfa2a4-74f5-4ffb-b01b-b23cfc0ea691" qty="1">Cacophonic Choir</card>
+        <card id="" qty="1">The Butcher's Nails</card>
+        <card id="1c138a7b-f8a6-4464-bae9-b7aff3f06aae" qty="1">Noise Marine Zealots</card>
+        <card id="9c65428d-b20c-46ec-bc9e-92e24782745b" qty="1">Ancient Keeper of Secrets</card>
+        <card id="" qty="4">Ba'ar Zul's Cleavers</card>
+        <card id="9f27a074-304f-413b-9089-82e28bf52fbe" qty="1">Slake the Thirst</card>
+        <card id="1e1aa741-a464-45b5-9bb0-9d6aabb4e562" qty="1">Turbulent Rift</card>
+        <card id="d953e090-697e-45ff-8ab3-09df93e18d26" qty="1">Kabalite Halfborn</card>
+    </section>
+</deck>
